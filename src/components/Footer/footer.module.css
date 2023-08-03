@@ -1,0 +1,20 @@
+.footer {
+	background-color: rgb(0, 21, 41);
+	height: 64px;
+	display: flex;
+}
+
+.footer__content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.footer__copyright {
+	color: rgba(255, 255, 255, 0.65);
+}
+
+.footer__contact {
+	color: rgba(255, 255, 255, 0.65);
+}
