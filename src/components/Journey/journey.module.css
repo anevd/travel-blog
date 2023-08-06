@@ -1,0 +1,37 @@
+.journey__content {
+	padding: 3% 0;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.journey__card {
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+.journey__collapse {
+	margin-bottom: 10px;
+}
+
+.journey__collapse_content {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.journey__card_inner {
+	width: 30%;
+}
+
+.journey__card_rate {
+	margin: 5px 0;
+}
+
+.journey__card_website {
+	font-weight: 700;
+}
+
+.journey__card_title {
+	margin: 10px 0 0 0;
+}

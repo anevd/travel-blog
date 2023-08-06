@@ -13,4 +13,5 @@ const CollapseList = () => {
 		</div>
 	);
 };
+
 export default CollapseList;
