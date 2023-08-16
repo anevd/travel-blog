@@ -8,9 +8,14 @@ const CollapseList = () => {
 		console.log(key);
 	};
 	return (
-		<div className={`container ${styles.collapse__content}`}>
-			<Collapse items={collapseItems} defaultActiveKey={["0"]} onChange={onChange} />
-		</div>
+		<section className={styles.collapse}>
+			<div className="container">
+				<h2 className={styles.collapse__title}>Videos about countries to visit</h2>
+				<div className={styles.collapse__content}>
+					<Collapse items={collapseItems} defaultActiveKey={["0"]} onChange={onChange} />
+				</div>
+			</div>
+		</section>
 	);
 };
 

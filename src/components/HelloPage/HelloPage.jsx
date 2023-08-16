@@ -4,10 +4,10 @@ import PhotoGallery from "../PhotoGallery/PhotoGallery";
 
 function HelloPage() {
 	return (
-		<div>
+		<section>
 			<About />
 			<PhotoGallery />
-		</div>
+		</section>
 	);
 }
 

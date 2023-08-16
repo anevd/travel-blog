@@ -1,3 +1,8 @@
-.collapse__content {
+.collapse {
 	padding: 3% 0;
+}
+
+.collapse__title {
+	font-size: 30px;
+	text-align: center;
 }

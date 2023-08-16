@@ -1,8 +1,16 @@
-.journey__content {
+.journey {
 	padding: 3% 0;
+}
+
+.journey__content {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
+}
+
+.journey__title {
+	font-size: 30px;
+	text-align: center;
 }
 
 .journey__card {
