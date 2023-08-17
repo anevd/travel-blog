@@ -1,0 +1,19 @@
+.map {
+	padding: 3% 0;
+}
+
+.map__title {
+	font-size: 30px;
+	text-align: center;
+}
+
+.map__content {
+	display: flex;
+	justify-content: center;
+	padding: 2% 0;
+}
+
+.map__frame {
+	width: 900px;
+	height: 600px;
+}

@@ -7,8 +7,8 @@ const PhotoGallery = () => {
 	return (
 		<div className={styles.photoGallery}>
 			<Carousel autoplay className={`container ${styles.photoGallery__carousel}`}>
-				{carouselData.map((el) => (
-					<div>
+				{carouselData.map((el, index) => (
+					<div key={index}>
 						<h3 style={{ backgroundImage: `url(${el.src})` }} className={styles.contentStyle}>
 							{el.name}
 						</h3>

@@ -14,7 +14,6 @@ const HeaderComponent = () => {
 	};
 	const menuArray = Object.entries(menu);
 
-	// ["About", "Video", "Journey", "Map"];
 	return (
 		<Header>
 			<div className={`${styles.header} container`}>
@@ -23,7 +22,6 @@ const HeaderComponent = () => {
 					theme="dark"
 					className={styles.header_menu}
 					mode="horizontal"
-					defaultSelectedKeys={["4"]}
 					items={menuArray.map((el, index) => ({
 						key: String(index + 1),
 						label: <Link to={el[1]}>{el[0]}</Link>,

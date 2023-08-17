@@ -11,8 +11,8 @@ const Journey = () => (
 		<div className="container">
 			<h2 className={styles.journey__title}>What to visit, where to eat and stay</h2>
 			<div className={styles.journey__content}>
-				{countries.map((el) => (
-					<Card title={el.country} className={styles.journey__card}>
+				{countries.map((el, index) => (
+					<Card key={Date.now() + index} title={el.country} className={styles.journey__card}>
 						<Collapse
 							className={styles.journey__collapse}
 							items={[
@@ -21,8 +21,8 @@ const Journey = () => (
 									label: "Attractions",
 									children: (
 										<div className={styles.journey__collapse_content}>
-											{el.attractions.map((el) => (
-												<Card className={styles.journey__card_inner} hoverable cover={<img alt={el.name} src={el.photo} />}>
+											{el.attractions.map((el, index) => (
+												<Card key={Date.now() + index} className={styles.journey__card_inner} hoverable cover={<img alt={el.name} src={el.photo} />}>
 													<Meta title={el.name} description={el.location} />
 												</Card>
 											))}
@@ -39,8 +39,8 @@ const Journey = () => (
 									label: "Hotels",
 									children: (
 										<div className={styles.journey__collapse_content}>
-											{el.hotels.map((el) => (
-												<Card className={styles.journey__card_inner} hoverable cover={<img alt={el.name} src={el.photo} />}>
+											{el.hotels.map((el, index) => (
+												<Card key={Date.now() + index} className={styles.journey__card_inner} hoverable cover={<img alt={el.name} src={el.photo} />}>
 													<Meta title={el.name} description={el.location} />
 													<Rate className={styles.journey__card_rate} disabled allowHalf defaultValue={el.rating} />
 													<div>
@@ -63,8 +63,8 @@ const Journey = () => (
 									label: "Restaurants",
 									children: (
 										<div className={styles.journey__collapse_content}>
-											{el.restaurants.map((el) => (
-												<Card className={styles.journey__card_inner} hoverable cover={<img alt={el.name} src={el.photo} />}>
+											{el.restaurants.map((el, index) => (
+												<Card key={Date.now() + index} className={styles.journey__card_inner} hoverable cover={<img alt={el.name} src={el.photo} />}>
 													<Meta title={el.name} description={el.location} />
 													<h3 className={styles.journey__card_title}>CUISINES:</h3>
 													<div>{el.cuisines}</div>
