@@ -17,3 +17,26 @@
 	width: 900px;
 	height: 600px;
 }
+
+.balloon,
+.hint {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100px;
+	height: 80px;
+	padding: 0.4rem;
+}
+
+.balloon__title,
+.hint__title {
+	font-size: 15px;
+	margin: 0 0 5px 0;
+}
+
+.balloon__image,
+.hint__image {
+	width: 100%;
+	object-fit: fill;
+}
