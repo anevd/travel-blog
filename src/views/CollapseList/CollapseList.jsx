@@ -2,6 +2,7 @@ import React from "react";
 import { Collapse } from "antd";
 import styles from "./collapseList.module.css";
 import collapseItems from "../../json/collapseItems";
+import Dog from "../../components/Dog/Dog";
 
 const CollapseList = () => {
 	const onChange = (key) => {
@@ -15,6 +16,7 @@ const CollapseList = () => {
 					<Collapse items={collapseItems} defaultActiveKey={["0"]} onChange={onChange} />
 				</div>
 			</div>
+			<Dog />
 		</section>
 	);
 };

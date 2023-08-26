@@ -1,5 +1,5 @@
 import { points } from "./points";
-import styles from "../components/TravelMap/travelMap.module.css";
+import styles from "../views/TravelMap/travelMap.module.css";
 
 let copy = [...points];
 let features = [];

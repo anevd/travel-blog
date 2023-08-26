@@ -1,0 +1,13 @@
+.photoSlider {
+	height: 450px;
+	padding: 20px 0 40px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #d6e4ff;
+}
+
+.photoSlider_header {
+	font-size: 30px;
+	text-align: center;
+}

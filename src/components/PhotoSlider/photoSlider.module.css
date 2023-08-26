@@ -1,0 +1,34 @@
+.photoSlider__carousel {
+	width: 500px;
+	height: max-content;
+}
+
+.contentStyle {
+	color: #fff;
+	line-height: 160px;
+	text-align: center;
+	background-size: cover;
+}
+
+.photoSlider__item {
+	display: flex;
+	text-align: center;
+}
+
+.photoSlider__title {
+	margin: 0 0 20px 0;
+}
+
+.photoSlider__img {
+	height: 200px;
+}
+
+.photoSlider__src {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.photoSlider__descr {
+	margin: 20px 0 0 0;
+}

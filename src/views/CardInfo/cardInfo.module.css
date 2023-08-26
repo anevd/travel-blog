@@ -1,0 +1,108 @@
+.cardInfo__title {
+	height: 400px;
+	display: flex;
+	align-items: flex-end;
+}
+
+.cardInfo__titleContent {
+	width: 40%;
+	padding: 1%;
+	background-color: #fff;
+	margin-bottom: 20px;
+}
+.cardInfo__titleName {
+	text-align: left;
+	font-size: 30px;
+	color: #001628;
+	font-weight: 900;
+	margin-bottom: 5px;
+}
+
+.cardInfo__titleLocation {
+	font-size: 25px;
+	color: #001628;
+}
+
+.cardInfo__button {
+	position: absolute;
+	width: 100px;
+	height: 30px;
+	top: -220px;
+	left: 0;
+	background-color: #fff;
+	border: none;
+	color: #001628;
+	font-size: 20px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.cardInfo__button:hover {
+	box-shadow: 0px 5px 20px 0px rgba(255, 255, 255, 0.75);
+}
+
+.cardInfo__description {
+	padding: 20px 0 50px 0;
+}
+
+.cardInfo__summaryInfo {
+	height: 150px;
+}
+
+.cardInfo__rate {
+	margin-bottom: 20px;
+	font-size: 35px;
+}
+
+.cardInfo__website {
+	font-weight: 700;
+	font-size: 30px;
+	color: #1677ff;
+	text-decoration: none;
+	cursor: pointer;
+	transition: color 0.3s;
+	margin-bottom: 70px;
+}
+
+.cardInfo__website:hover {
+	color: #7cadf3;
+}
+
+.cardInfo__restaurantInfo {
+	display: flex;
+	width: 40%;
+	justify-content: space-between;
+}
+
+.cardInfo__cuisines {
+	width: 45%;
+}
+
+.cardInfo__priceRange {
+	width: 45%;
+}
+
+.cardInfo__text {
+	font-size: 20px;
+	line-height: 30px;
+}
+
+.cardInfo__map {
+	position: absolute;
+	width: 50%;
+	bottom: 0;
+	right: 0;
+	transform: translateY(50%);
+}
+
+.cardInfo__mapContent {
+	height: 300px;
+}
+
+.cardInfo__slider {
+	min-height: 300px;
+	padding: 20px 0;
+	display: flex;
+	justify-content: center;
+	background-color: #d6e4ff;
+}
