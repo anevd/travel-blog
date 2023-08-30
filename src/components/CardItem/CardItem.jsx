@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 const { Meta } = Card;
 
 function CardItem({ name, id, photo, location, rating, website, cuisines, priceRange, country, type }) {
-	console.log(country);
-	console.log(name);
 	return (
 		<Link to={`/journey/${country}/${type}/${id}`} className={styles.journey__card_inner} onClick={() => window.scrollTo(0, 0)}>
 			<Card hoverable cover={<img alt={name} src={photo} />}>

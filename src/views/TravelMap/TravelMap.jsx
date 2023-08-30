@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./travelMap.module.css";
 import { YMaps, Map, ObjectManager } from "@pbe/react-yandex-maps";
 import { pointsOnMap } from "../../json/pointsOnMap";
 import Dog from "../../components/Dog/Dog";
+import { globalContext } from "../../contexts/globalContext";
 
 function TravelMap() {
+	const { dogImages, dogJokes } = useContext(globalContext);
 	return (
 		<section className={styles.map}>
 			<div className="container">
@@ -37,7 +39,7 @@ function TravelMap() {
 					</div>
 				</YMaps>
 			</div>
-			<Dog />
+			<Dog image={dogImages[2].src} joke={dogJokes[1].text} />
 		</section>
 	);
 }

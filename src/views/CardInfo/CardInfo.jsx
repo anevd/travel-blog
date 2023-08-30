@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import styles from "./cardInfo.module.css";
 import countries from "../../json/countries";
@@ -6,8 +6,10 @@ import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 import PhotoSlider from "../../components/PhotoSlider/PhotoSlider";
 import { Rate } from "antd";
 import Dog from "../../components/Dog/Dog";
+import { globalContext } from "../../contexts/globalContext";
 
 function CardInfo() {
+	const { dogImages, dogJokes } = useContext(globalContext);
 	const { country, type, id } = useParams();
 	const currentCountry = countries.filter((el) => el.country === country)[0];
 	let currentCountryLocationType;
@@ -37,7 +39,7 @@ function CardInfo() {
 					</div>
 					<YMaps
 						query={{
-							apikey: "a8a81363-9afa-4e0c-85c9-d2f5976857246",
+							apikey: "47e5552b-eff0-4a17-9a72-e782820a3edd",
 							lang: "ru_RU",
 						}}>
 						<div className={styles.cardInfo__map}>
@@ -88,7 +90,7 @@ function CardInfo() {
 					<PhotoSlider data={currentCard.photoCarousel} />
 				</div>
 			)}
-			<Dog />
+			<Dog image={dogImages[0].src} joke={dogJokes[1].text} />
 		</section>
 	);
 }

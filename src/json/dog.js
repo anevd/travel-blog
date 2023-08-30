@@ -6,7 +6,15 @@ const dog = {
 		},
 		{
 			id: 2,
-			src: "./img/lying-dog.png",
+			src: "./img/dog-lying.png",
+		},
+		{
+			id: 3,
+			src: "./img/dog-standing.png",
+		},
+		{
+			id: 4,
+			src: "./img/dog-sitting.png",
 		},
 	],
 	jokes: [
