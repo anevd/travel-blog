@@ -2,19 +2,19 @@ const dog = {
 	images: [
 		{
 			id: 1,
-			src: "./img/dog-with-tongue.png",
+			src: "../../../img/dog-with-tongue.png",
 		},
 		{
 			id: 2,
-			src: "./img/dog-lying.png",
+			src: "../../../img/dog-lying.png",
 		},
 		{
 			id: 3,
-			src: "./img/dog-standing.png",
+			src: "../../../img/dog-standing.png",
 		},
 		{
 			id: 4,
-			src: "./img/dog-sitting.png",
+			src: "../../../img/dog-sitting.png",
 		},
 	],
 	jokes: [
