@@ -1,0 +1,25 @@
+.videoAdding {
+	padding: 3% 0;
+}
+.videoAdding__title {
+	font-size: 30px;
+	text-align: center;
+}
+
+.form__content {
+	display: flex;
+	flex-direction: column;
+	height: 250px;
+}
+
+.form__title {
+	margin: 10px 0 0 0;
+}
+
+.form__label {
+	width: 100px;
+}
+
+.form__input {
+	width: 400px;
+}

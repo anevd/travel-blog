@@ -1,0 +1,17 @@
+.collapse {
+	padding: 3% 0;
+}
+
+.collapse__title {
+	font-size: 30px;
+	text-align: center;
+}
+
+.collapse__header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.collapse__button {
+	margin-top: 20px;
+}
