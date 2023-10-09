@@ -18,3 +18,12 @@
 .footer__contact {
 	color: rgba(255, 255, 255, 0.65);
 }
+
+@media screen and (max-width: 530px) {
+	.footer {
+		padding: 20px 0;
+	}
+	.footer__content {
+		flex-direction: column;
+	}
+}

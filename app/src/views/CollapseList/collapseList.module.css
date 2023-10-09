@@ -13,5 +13,41 @@
 }
 
 .collapse__button {
-	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.collapse__video {
+	width: 60%;
+	height: 400px;
+}
+
+@media screen and (max-width: 992px) {
+	.collapse__video {
+		width: 80%;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.collapse__video {
+		width: 100%;
+		height: 350px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.collapse__video {
+		height: 200px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.collapse__video {
+		height: 170px;
+	}
+}
+
+@media screen and (max-width: 380px) {
+	.collapse__video {
+		height: 140px;
+	}
 }

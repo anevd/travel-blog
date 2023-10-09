@@ -13,3 +13,23 @@
 .journey__card_title {
 	margin: 10px 0 0 0;
 }
+
+@media screen and (max-width: 768px) {
+	.journey__card_inner {
+		width: 45%;
+		margin-top: 20px;
+	}
+	.journey__card_inner:nth-child(1),
+	.journey__card_inner:nth-child(2) {
+		margin-top: 0;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.journey__card_inner {
+		width: 100%;
+	}
+	.journey__card_inner:nth-child(2) {
+		margin-top: 20px;
+	}
+}

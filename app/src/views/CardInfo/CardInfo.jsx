@@ -12,8 +12,12 @@ function CardInfo() {
 	const dispatch = useDispatch();
 	const { dog, countries } = useSelector((store) => store.mainStore);
 	useEffect(() => {
-		dispatch(getDogThunk());
-		dispatch(getCountriesThunk());
+		if (Object.keys(dog).length === 0) {
+			dispatch(getDogThunk());
+		}
+		if (Object.keys(countries).length === 0) {
+			dispatch(getCountriesThunk());
+		}
 	}, []);
 	const { images: dogImages, jokes: dogJokes } = dog;
 	const { country, type, id } = useParams();

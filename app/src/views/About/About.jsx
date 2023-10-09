@@ -7,7 +7,9 @@ function About() {
 	const dispatch = useDispatch();
 	const { helloData } = useSelector((store) => store.mainStore);
 	useEffect(() => {
-		dispatch(getAboutDataThunk());
+		if (Object.keys(helloData).length === 0) {
+			dispatch(getAboutDataThunk());
+		}
 	}, []);
 	return (
 		<div className={`${styles.about} container`}>

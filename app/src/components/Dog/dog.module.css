@@ -21,3 +21,15 @@
 	background-color: #fff;
 	border: 2px solid black;
 }
+
+@media screen and (max-width: 768px) {
+	.dog__joke {
+		width: 50%;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.dog {
+		display: none;
+	}
+}

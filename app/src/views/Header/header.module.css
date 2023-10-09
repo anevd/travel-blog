@@ -1,4 +1,9 @@
 .header {
+	flex: none;
+	padding: 0;
+}
+
+.header_wrapper {
 	position: sticky;
 	top: 0;
 	z-index: 1;
@@ -11,4 +16,10 @@
 	color: #fff;
 	font-weight: 700;
 	font-size: 20px;
+}
+
+.header_menu {
+	display: flex;
+	justify-content: right;
+	width: 60%;
 }

@@ -10,8 +10,12 @@ function HelloPage() {
 	const dispatch = useDispatch();
 	const { dog, carouselData } = useSelector((store) => store.mainStore);
 	useEffect(() => {
-		dispatch(getDogThunk());
-		dispatch(getCarouselDataThunk());
+		if (Object.keys(dog).length === 0) {
+			dispatch(getDogThunk());
+		}
+		if (Object.keys(carouselData).length === 0) {
+			dispatch(getCarouselDataThunk());
+		}
 	}, []);
 	const { images: dogImages, jokes: dogJokes } = dog;
 	return (
@@ -19,7 +23,7 @@ function HelloPage() {
 			<About />
 			<div className={styles.photoSlider}>
 				<h2 className={styles.photoSlider_header}>Recent trip</h2>
-				<PhotoSlider data={carouselData} />
+				<PhotoSlider data={carouselData} className={styles.photoSlider__carousel} />
 			</div>
 			{Object.keys(dog).length !== 0 && <Dog image={dogImages[2].src} joke={dogJokes[2].text} />}
 		</section>

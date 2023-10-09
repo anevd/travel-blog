@@ -44,6 +44,15 @@ export function mainReducer(state = initialState, action) {
 			const countries = action.payload;
 			return { ...state, countries };
 		}
+		case mainTypes.DELETE_COUNTRY: {
+			const id = action.payload;
+			return {
+				...state,
+				countries: state.countries.filter((el) => {
+					return el.id !== id;
+				}),
+			};
+		}
 		case mainTypes.GET_POINTS: {
 			const points = action.payload;
 			return { ...state, points };

@@ -18,6 +18,15 @@
 	margin-bottom: 30px;
 }
 
+.journey__cardTitle {
+	display: flex;
+	justify-content: space-between;
+}
+
+.journey__button_last {
+	margin-left: 10px;
+}
+
 .journey__collapse {
 	margin-bottom: 10px;
 }
@@ -26,4 +35,10 @@
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
+}
+
+@media screen and (max-width: 480px) {
+	.journey__collapse_content {
+		flex-direction: column;
+	}
 }

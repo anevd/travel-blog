@@ -9,8 +9,12 @@ function TravelMap() {
 	const dispatch = useDispatch();
 	const { dog, points } = useSelector((store) => store.mainStore);
 	useEffect(() => {
-		dispatch(getDogThunk());
-		dispatch(getPointsThunk());
+		if (Object.keys(dog).length === 0) {
+			dispatch(getDogThunk());
+		}
+		if (Object.keys(points).length === 0) {
+			dispatch(getPointsThunk());
+		}
 	}, []);
 	const { images: dogImages, jokes: dogJokes } = dog;
 	const copy = [...points];

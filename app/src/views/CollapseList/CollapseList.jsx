@@ -14,8 +14,12 @@ const CollapseList = () => {
 	const dispatch = useDispatch();
 	const { dog, collapseItems } = useSelector((store) => store.mainStore);
 	useEffect(() => {
-		dispatch(getDogThunk());
-		dispatch(getCollapseItemsThunk());
+		if (Object.keys(dog).length === 0) {
+			dispatch(getDogThunk());
+		}
+		if (Object.keys(collapseItems).length === 0) {
+			dispatch(getCollapseItemsThunk());
+		}
 	}, []);
 	const { images: dogImages, jokes: dogJokes } = dog;
 	async function deleteVideo(key) {
@@ -38,6 +42,9 @@ const CollapseList = () => {
 		<section className={styles.collapse}>
 			<div className="container">
 				<h2 className={styles.collapse__title}>Videos about countries to visit</h2>
+				<Link to="/add-video">
+					<Button className={styles.collapse__button}>Add a video</Button>
+				</Link>
 				<div className={styles.collapse__content}>
 					<Collapse>
 						{collapseItems.map((el) => (
@@ -54,14 +61,13 @@ const CollapseList = () => {
 										</Button>
 									</div>
 								}>
-								<ReactPlayer url={el.src} />
+								<div className={styles.collapse__video}>
+									<ReactPlayer url={el.src} width="100%" height="100%" />
+								</div>
 							</Panel>
 						))}
 					</Collapse>
 				</div>
-				<Link to="/add-video">
-					<Button className={styles.collapse__button}>Add a video</Button>
-				</Link>
 			</div>
 			{Object.keys(dog).length !== 0 && <Dog image={dogImages[1].src} joke={dogJokes[0].text} />}
 		</section>

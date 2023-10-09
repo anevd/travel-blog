@@ -20,4 +20,11 @@ router.get("/", function (req, res) {
 	res.send(JSON.stringify(countries));
 });
 
+router.delete("/:id", function (req, res) {
+	const { id } = req.params;
+	const index = countries.findIndex((el) => el.id === +id);
+	countries.splice(index, 1);
+	res.status(200).end();
+});
+
 module.exports = router;

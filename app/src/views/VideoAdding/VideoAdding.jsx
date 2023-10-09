@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import countryList from "react-select-country-list";
 import styles from "./videoAdding.module.css";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Select } from "antd";
 import axios from "axios";
 import { notification } from "antd";
 import { addVideoAC } from "../../store/actions/mainActions";
@@ -12,15 +13,8 @@ function VideoAdding() {
 	const dispatch = useDispatch();
 	const [country, setCountry] = useState("");
 	const [src, setSrc] = useState("");
-	const formItemLayout = {
-		labelCol: { span: 8 },
-		wrapperCol: { span: 8 },
-	};
-
-	const formTailLayout = {
-		labelCol: { span: 8 },
-		wrapperCol: { span: 8, offset: 8 },
-	};
+	const options = useMemo(() => countryList().getData(), []);
+	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
 	async function onFinish() {
 		try {
@@ -53,13 +47,17 @@ function VideoAdding() {
 		}
 	}
 	const onFinishFailed = (errorInfo) => {
-		console.log("Failed:", errorInfo);
+		notification.error({
+			message: "Error",
+			description: "Check if all fields are filled in",
+		});
 	};
 	return (
 		<section className={styles.videoAdding}>
 			<div className="container">
 				<h2 className={styles.videoAdding__title}>Add a video</h2>
 				<Form
+					layout="vertical"
 					className={styles.form}
 					name="basic"
 					initialValues={{
@@ -70,8 +68,8 @@ function VideoAdding() {
 					autoComplete="off">
 					<div className={styles.form__content}>
 						<Form.Item
-							{...formItemLayout}
-							label="Country name"
+							className={styles.form__item}
+							label="Country"
 							name="country"
 							rules={[
 								{
@@ -79,18 +77,23 @@ function VideoAdding() {
 									message: "Please input a country name",
 								},
 							]}>
-							<Input
-								allowClear
-								className={styles.form__input}
+							<Select
+								showSearch
+								placeholder="Select a country"
 								value={country}
+								optionFilterProp="children"
 								onChange={(event) => {
-									setCountry(event.target.value);
+									setCountry(event);
 								}}
+								filterOption={filterOption}
+								options={options.map((item) => ({
+									value: item.label,
+									label: item.label,
+								}))}
 							/>
 						</Form.Item>
-
 						<Form.Item
-							{...formItemLayout}
+							className={styles.form__item}
 							label="Link (YouTube)"
 							name="src"
 							rules={[
@@ -101,16 +104,15 @@ function VideoAdding() {
 							]}>
 							<Input
 								allowClear
-								className={styles.form__input}
 								value={src}
 								onChange={(event) => {
 									setSrc(event.target.value);
 								}}
 							/>
 						</Form.Item>
-						<Form.Item {...formTailLayout}>
+						<Form.Item className={styles.form__item}>
 							<Button type="primary" htmlType="submit">
-								Submit
+								Add
 							</Button>
 						</Form.Item>
 					</div>

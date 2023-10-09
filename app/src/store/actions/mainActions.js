@@ -36,6 +36,11 @@ export const getCountriesAC = (countries) => ({
 	payload: countries,
 });
 
+export const deleteCountryAC = (id) => ({
+	type: mainTypes.DELETE_COUNTRY,
+	payload: id,
+});
+
 export const getPointsAC = (points) => ({
 	type: mainTypes.GET_POINTS,
 	payload: points,

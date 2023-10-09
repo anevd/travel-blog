@@ -16,3 +16,35 @@
 	font-size: 20px;
 	line-height: 30px;
 }
+
+@media screen and (max-width: 992px) {
+	.about__descr {
+		font-size: 15px;
+		line-height: 20px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.about__img {
+		width: 45%;
+	}
+	.about__descr {
+		width: 50%;
+		font-size: 15px;
+		line-height: 20px;
+	}
+}
+
+@media screen and (max-width: 620px) {
+	.about {
+		flex-direction: column;
+	}
+	.about__img {
+		width: 100%;
+	}
+
+	.about__descr {
+		width: 100%;
+		text-align: center;
+	}
+}

@@ -1,27 +1,79 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Collapse } from "antd";
-import { Card } from "antd";
+import { Collapse, Button, Modal, Card, notification } from "antd";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 import styles from "./journey.module.css";
 import CardItem from "../../components/CardItem/CardItem";
 import Dog from "../../components/Dog/Dog";
-import { getDogThunk, getCountriesThunk } from "../../store/actions/mainActions";
+import ModalComponent from "../../components/ModalComponent/ModalComponent";
+import { getDogThunk, getCountriesThunk, deleteCountryAC } from "../../store/actions/mainActions";
+import axios from "axios";
+const { confirm } = Modal;
 
 const Journey = () => {
 	const dispatch = useDispatch();
 	const { dog, countries } = useSelector((store) => store.mainStore);
 	useEffect(() => {
-		dispatch(getDogThunk());
-		dispatch(getCountriesThunk());
+		if (Object.keys(dog).length === 0) {
+			dispatch(getDogThunk());
+		}
+		if (Object.keys(countries).length === 0) {
+			dispatch(getCountriesThunk());
+		}
 	}, []);
 	const { images: dogImages, jokes: dogJokes } = dog;
+	async function showDeleteConfirm(id) {
+		confirm({
+			title: "Are you sure delete this country?",
+			icon: <ExclamationCircleFilled />,
+			okText: "Yes",
+			okType: "danger",
+			cancelText: "No",
+			async onOk() {
+				try {
+					const response = await axios.delete(`http://localhost:4000/countries/${id}`);
+					if (response.status === 200) {
+						dispatch(deleteCountryAC(id));
+					} else {
+						throw new Error("error");
+					}
+				} catch (error) {
+					notification.error({
+						message: "Error",
+						description: error.message,
+					});
+				}
+			},
+			onCancel() {
+				return;
+			},
+		});
+	}
+
 	return (
 		<section className={styles.journey}>
 			<div className="container">
 				<h2 className={styles.journey__title}>What to visit, where to eat and stay</h2>
 				<div className={styles.journey__content}>
 					{countries.map((elem, index) => (
-						<Card key={Date.now() + index} title={elem.country} className={styles.journey__card}>
+						<Card
+							key={Date.now() + index}
+							title={
+								<div className={styles.journey__cardTitle}>
+									<div>{elem.country}</div>
+									<div>
+										<ModalComponent action={"Edit"} country={elem} countries={countries} />
+										<Button
+											className={styles.journey__button_last}
+											onClick={() => {
+												showDeleteConfirm(elem.id);
+											}}>
+											Delete
+										</Button>
+									</div>
+								</div>
+							}
+							className={styles.journey__card}>
 							<Collapse
 								className={styles.journey__collapse}
 								items={[
@@ -112,6 +164,7 @@ const Journey = () => {
 					))}
 				</div>
 			</div>
+
 			{Object.keys(dog).length !== 0 && <Dog image={dogImages[3].src} joke={dogJokes[0].text} />}
 		</section>
 	);

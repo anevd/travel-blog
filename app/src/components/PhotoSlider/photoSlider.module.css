@@ -32,3 +32,24 @@
 .photoSlider__descr {
 	margin: 20px 0 0 0;
 }
+
+@media screen and (max-width: 768px) {
+	.photoSlider__carousel {
+		width: 400px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.photoSlider__carousel {
+		width: 300px;
+	}
+	.photoSlider__descr {
+		font-size: 14px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.photoSlider__carousel {
+		width: 250px;
+	}
+}
