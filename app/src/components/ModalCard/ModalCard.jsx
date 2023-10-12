@@ -1,88 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Input, Card } from "antd";
+import { Form, Input, Card, notification } from "antd";
+import { collectChangesAC } from "../../store/actions/mainActions";
 import styles from "./modalCard.module.css";
 
-function ModalCard({ country, category, id, name, photo, location, description, rating, website, priceRange, cuisines }) {
-	const [editId, setEditId] = useState(null);
-	const [newPhoto, setNewPhoto] = useState(photo);
-	const [newName, setNewName] = useState(name);
-	const [newLocation, setNewLocation] = useState(location);
-	const [newDescription, setNewDescription] = useState(description);
-	const [newRating, setNewRating] = useState(rating);
-	const [newWebsite, setNewWebsite] = useState(website);
-	const [newPriceRange, setNewPriceRange] = useState(priceRange);
-	const [newCuisines, setNewCuisines] = useState(cuisines);
+function ModalCard({ country, category, place }) {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	function handleInput(event, property, id, country) {
+		dispatch(collectChangesAC(event.target.value, property, id, country));
+	}
+
 	return (
 		<Card
 			size="small"
 			className={styles.modalCard}
 			title={
-				<Form.Item
-					className={styles.form__item}
-					label="Place"
-					name="place"
-					rules={[
-						{
-							required: true,
-							message: "Please input a country name",
-						},
-					]}>
-					<Input id={`${id}-name`} defaultValue={newName} value={newName} onChange={(event) => setEditId(event.target.id)} />
-				</Form.Item>
+				<div className={styles.modalCard__title}>
+					<div className={styles.modalCard__titleText}>Place</div>
+					<Input required defaultValue={place.name} onChange={(event) => handleInput(event, "name", place.id, country)} />
+				</div>
 			}>
-			<Form.Item
-				className={styles.form__item}
-				label="Location"
-				name="location"
-				rules={[
-					{
-						required: true,
-					},
-				]}>
-				<Input
-					value={newLocation}
-					defaultValue={newLocation}
-					onChange={(event) => {
-						setNewLocation(event.target.value);
-					}}
-				/>
-			</Form.Item>
-			<Form.Item
-				className={styles.form__item}
-				label="Photo"
-				name="photo"
-				rules={[
-					{
-						required: true,
-					},
-				]}>
-				<Input
-					value={newPhoto}
-					defaultValue={newPhoto}
-					onChange={(event) => {
-						setNewPhoto(event.target.value);
-					}}
-				/>
-			</Form.Item>
-			<Form.Item
-				className={styles.form__item}
-				label="Description"
-				name="description"
-				rules={[
-					{
-						required: true,
-					},
-				]}>
-				<Input
-					value={newDescription}
-					defaultValue={newDescription}
-					onChange={(event) => {
-						setNewDescription(event.target.value);
-					}}
-				/>
-			</Form.Item>
+			<div className={styles.modalCard__item}>
+				<div className={styles.modalCard__itemText}>Location</div>
+				<Input className={styles.modalCard__input} defaultValue={place.location} onChange={(event) => handleInput(event, "location", place.id, country)} />
+			</div>
+			<div className={styles.modalCard__item}>
+				<div className={styles.modalCard__itemText}>Photo</div>
+				<Input className={styles.modalCard__input} defaultValue={place.photo} onChange={(event) => handleInput(event, "photo", place.id, country)} />
+			</div>
+			<div className={styles.modalCard__item}>
+				<div className={styles.modalCard__itemText}>Description</div>
+				<Input className={styles.modalCard__input} defaultValue={place.description} onChange={(event) => handleInput(event, "description", place.id, country)} />
+			</div>
 		</Card>
 	);
 }

@@ -7,6 +7,7 @@ const initialState = {
 	collapseItems: [],
 	countries: [],
 	points: [],
+	changesСollection: [],
 };
 
 export function mainReducer(state = initialState, action) {
@@ -53,6 +54,17 @@ export function mainReducer(state = initialState, action) {
 				}),
 			};
 		}
+
+		case mainTypes.COLLECT_CHANGES: {
+			const value = action.payload.value;
+			const property = action.payload.property;
+			const id = action.payload.id;
+			console.log(value, property, id);
+			return {
+				...state,
+			};
+		}
+
 		case mainTypes.GET_POINTS: {
 			const points = action.payload;
 			return { ...state, points };

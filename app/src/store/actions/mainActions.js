@@ -41,6 +41,16 @@ export const deleteCountryAC = (id) => ({
 	payload: id,
 });
 
+export const collectChangesAC = (value, property, id, country) => ({
+	type: mainTypes.COLLECT_CHANGES,
+	payload: {
+		value: value,
+		property: property,
+		id: id,
+		country: country,
+	},
+});
+
 export const getPointsAC = (points) => ({
 	type: mainTypes.GET_POINTS,
 	payload: points,

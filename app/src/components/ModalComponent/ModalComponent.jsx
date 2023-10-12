@@ -1,28 +1,51 @@
 import React, { useState, useMemo } from "react";
 import { Button, Modal, Form, Select, Input, Card, notification } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import countryList from "react-select-country-list";
 import axios from "axios";
 import ModalCard from "../ModalCard/ModalCard";
 import styles from "./modal.module.css";
 
 function ModalComponent({ action, country, countries }) {
+	const dispatch = useDispatch();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const options = useMemo(() => countryList().getData(), []);
-	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 	const categories = ["Attractions", "Hotels", "Restaurants"];
 	const [category, setCategory] = useState(categories[0]);
-	const handleOk = () => {
-		setIsModalOpen(false);
-	};
+
 	const handleCancel = () => {
 		setIsModalOpen(false);
 	};
 	function showModal(id) {
 		setIsModalOpen(true);
 	}
-	async function onFinish() {
-		try {
-		} catch (error) {}
+	async function handleSubmit() {
+		// setIsModalOpen(false);
+		// console.log();
+		// try {
+		// 	const editedRestaurant = {
+		// 		image: newImage,
+		// 		name: newName,
+		// 		location: newLocation,
+		// 		description: newDescription,
+		// 		rating: newRating,
+		// 		id: +id,
+		// 	};
+		// 	const response = await axios.put("http://localhost:4000/edit", editedRestaurant);
+		// 	if (response.status === 200) {
+		// 		dispatch(editCardAC(editedRestaurant));
+		// 		navigate("/restaurants");
+		// 	} else {
+		// 		let errorType = response.status;
+		// 		navigate(`/error/${errorType}`);
+		// 		throw new Error("error");
+		// 	}
+		// } catch (error) {
+		// 	notification.error({
+		// 		message: "Error",
+		// 		description: error.message,
+		// 	});
+		// }
 	}
 	const onFinishFailed = (errorInfo) => {
 		notification.error({
@@ -35,89 +58,60 @@ function ModalComponent({ action, country, countries }) {
 		<>
 			<Button onClick={showModal}>Edit</Button>
 			{isModalOpen === true ? (
-				<Modal title={`${action} an information`} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width="1000px">
-					<Form
-						layout="vertical"
-						className={styles.form}
-						name="basic"
-						initialValues={{
-							remember: true,
-						}}
-						onFinish={onFinish}
-						onFinishFailed={onFinishFailed}
-						autoComplete="off">
-						<div className={styles.form__content}>
-							<Form.Item
-								className={styles.form__item}
-								label="Country"
-								name="country"
-								rules={[
-									{
-										required: true,
-										message: "Please input a country name",
-									},
-								]}>
+				<Modal
+					title={`${action} an information`}
+					open={isModalOpen}
+					onOk={handleSubmit}
+					onCancel={handleCancel}
+					width="1000px"
+					footer={[
+						<Button key="cancel" onClick={handleCancel}>
+							Cancel
+						</Button>,
+
+						<Button key="submit" type="primary" onClick={handleSubmit}>
+							Save
+						</Button>,
+					]}>
+					<Select
+						className={styles.modal__choice}
+						defaultValue={country.country}
+						disabled
+						showSearch
+						optionFilterProp="children"
+						options={options.map((item) => ({
+							value: item.label,
+							label: item.label,
+						}))}
+					/>
+
+					<Card
+						title={
+							<div className={styles.modal__item}>
+								<div className={styles.modal__itemText}>Select a category</div>
 								<Select
-									defaultValue={country.country}
-									disabled
+									className={styles.modal__input}
+									defaultValue={category}
 									showSearch
+									placeholder="Select a category"
+									value={category}
 									optionFilterProp="children"
-									options={options.map((item) => ({
-										value: item.label,
-										label: item.label,
+									onChange={(event) => {
+										setCategory(event);
+									}}
+									options={categories.map((item) => ({
+										value: item,
+										label: item,
 									}))}
 								/>
-							</Form.Item>
-							<Card
-								title={
-									<Form.Item
-										className={styles.form__item}
-										label="Select a category"
-										name="category"
-										rules={[
-											{
-												required: true,
-												message: "Please input a country name",
-											},
-										]}>
-										<Select
-											defaultValue={category}
-											showSearch
-											placeholder="Select a category"
-											value={category}
-											optionFilterProp="children"
-											onChange={(event) => {
-												setCategory(event);
-											}}
-											// filterOption={filterOption}
-											options={categories.map((item) => ({
-												value: item,
-												label: item,
-											}))}
-										/>
-									</Form.Item>
-								}>
-								<div className={styles.modal__wrapper}>
-									{country[category.toLowerCase()].map((el, index) => (
-										<ModalCard
-											country={country}
-											category={category.toLowerCase()}
-											key={index}
-											id={el.id}
-											name={el.name}
-											photo={el.photo}
-											location={el.location}
-											description={el.description}
-											rating={el.rating}
-											website={el.website}
-											priceRange={el.priceRange}
-											cuisines={el.cuisines}
-										/>
-									))}
-								</div>
-							</Card>
+							</div>
+						}>
+						<div className={styles.modal__wrapper}>
+							{country[category.toLowerCase()].map((el, index) => (
+								<ModalCard country={country} category={category.toLowerCase()} key={index} place={el} />
+							))}
 						</div>
-					</Form>
+					</Card>
 				</Modal>
 			) : (
 				<></>

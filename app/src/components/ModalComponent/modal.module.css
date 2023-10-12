@@ -1,3 +1,21 @@
+.modal__choice {
+	margin-bottom: 15px;
+	width: 150px;
+}
+
+.modal__input {
+	width: 150px;
+}
+
 .modal__wrapper {
 	display: flex;
+}
+
+.modal__item {
+	padding: 10px 0;
+}
+
+.modal__itemText {
+	margin-bottom: 10px;
+	font-weight: 600;
 }
