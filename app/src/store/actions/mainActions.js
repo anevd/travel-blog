@@ -41,6 +41,16 @@ export const deleteCountryAC = (id) => ({
 	payload: id,
 });
 
+export const changeModalIndexAC = (index) => ({
+	type: mainTypes.CHANGE_MODAL_INDEX,
+	payload: index,
+});
+
+export const changeModalVisibilityAC = (boolean) => ({
+	type: mainTypes.CHANGE_MODAL_VISIBILITY,
+	payload: boolean,
+});
+
 export const collectChangesAC = (value, property, id, country) => ({
 	type: mainTypes.COLLECT_CHANGES,
 	payload: {

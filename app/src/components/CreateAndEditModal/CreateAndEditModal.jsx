@@ -4,23 +4,23 @@ import { useDispatch, useSelector } from "react-redux";
 import countryList from "react-select-country-list";
 import axios from "axios";
 import ModalCard from "../ModalCard/ModalCard";
-import styles from "./modal.module.css";
+import { changeModalVisibilityAC } from "../../store/actions/mainActions";
+import styles from "./createAndEditModal.module.css";
 
-function ModalComponent({ action, country, countries }) {
+function CreateAndEditModal({ action, country }) {
 	const dispatch = useDispatch();
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const { changesСollection, isModalOpen, modalIndex, countries } = useSelector((store) => store.mainStore);
+	// const [isModalOpen, setIsModalOpen] = useState(false);
 	const options = useMemo(() => countryList().getData(), []);
 	const categories = ["Attractions", "Hotels", "Restaurants"];
 	const [category, setCategory] = useState(categories[0]);
-
+	console.log(changesСollection);
 	const handleCancel = () => {
-		setIsModalOpen(false);
+		dispatch(changeModalVisibilityAC(false));
 	};
-	function showModal(id) {
-		setIsModalOpen(true);
-	}
+
 	async function handleSubmit() {
-		// setIsModalOpen(false);
+		dispatch(changeModalVisibilityAC(false));
 		// console.log();
 		// try {
 		// 	const editedRestaurant = {
@@ -56,8 +56,7 @@ function ModalComponent({ action, country, countries }) {
 
 	return (
 		<>
-			<Button onClick={showModal}>Edit</Button>
-			{isModalOpen === true ? (
+			{country.id === modalIndex ? (
 				<Modal
 					title={`${action} an information`}
 					open={isModalOpen}
@@ -108,7 +107,7 @@ function ModalComponent({ action, country, countries }) {
 						}>
 						<div className={styles.modal__wrapper}>
 							{country[category.toLowerCase()].map((el, index) => (
-								<ModalCard country={country} category={category.toLowerCase()} key={index} place={el} />
+								<ModalCard country={country[modalIndex]} category={category.toLowerCase()} key={index} place={el} />
 							))}
 						</div>
 					</Card>
@@ -120,4 +119,4 @@ function ModalComponent({ action, country, countries }) {
 	);
 }
 
-export default ModalComponent;
+export default CreateAndEditModal;

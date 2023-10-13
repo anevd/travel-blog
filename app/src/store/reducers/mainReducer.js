@@ -8,6 +8,8 @@ const initialState = {
 	countries: [],
 	points: [],
 	changesСollection: [],
+	isModalOpen: false,
+	modalIndex: null,
 };
 
 export function mainReducer(state = initialState, action) {
@@ -54,14 +56,50 @@ export function mainReducer(state = initialState, action) {
 				}),
 			};
 		}
-
+		case mainTypes.CHANGE_MODAL_INDEX: {
+			const index = action.payload;
+			return { ...state, modalIndex: index, isModalOpen: true };
+		}
+		case mainTypes.CHANGE_MODAL_VISIBILITY: {
+			const boolean = action.payload;
+			return { ...state, isModalOpen: boolean };
+		}
 		case mainTypes.COLLECT_CHANGES: {
 			const value = action.payload.value;
 			const property = action.payload.property;
 			const id = action.payload.id;
-			console.log(value, property, id);
+			const changes = {
+				id: id,
+				[property]: value,
+			};
+			state.changesСollection.map((el) => {
+				if (el.id === changes[id]) {
+					console.log("yes");
+					for (let key in changes) {
+						if (key === property) {
+							key[value] = value;
+							console.log(key[value]);
+						}
+					}
+				} else return changes;
+			});
 			return {
 				...state,
+				changesСollection: [
+					...state.changesСollection,
+					changes,
+					// state.changesСollection.map((el) => {
+					// 	if (el.id === changes[id]) {
+					// 		console.log("yes");
+					// 		for (let key in changes) {
+					// 			if (key === property) {
+					// 				key[value] = value;
+					// 				console.log(key[value]);
+					// 			}
+					// 		}
+					// 	} else return changes;
+					// }),
+				],
 			};
 		}
 

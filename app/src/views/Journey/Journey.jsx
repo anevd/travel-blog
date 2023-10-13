@@ -5,8 +5,8 @@ import { ExclamationCircleFilled } from "@ant-design/icons";
 import styles from "./journey.module.css";
 import CardItem from "../../components/CardItem/CardItem";
 import Dog from "../../components/Dog/Dog";
-import ModalComponent from "../../components/ModalComponent/ModalComponent";
-import { getDogThunk, getCountriesThunk, deleteCountryAC } from "../../store/actions/mainActions";
+import ModalComponent from "../../components/CreateAndEditModal/CreateAndEditModal";
+import { getDogThunk, getCountriesThunk, deleteCountryAC, changeModalIndexAC } from "../../store/actions/mainActions";
 import axios from "axios";
 const { confirm } = Modal;
 
@@ -49,6 +49,9 @@ const Journey = () => {
 			},
 		});
 	}
+	const openModal = (id) => {
+		dispatch(changeModalIndexAC(id));
+	};
 
 	return (
 		<section className={styles.journey}>
@@ -63,6 +66,13 @@ const Journey = () => {
 									<div>{elem.country}</div>
 									<div>
 										<ModalComponent action={"Edit"} country={elem} countries={countries} />
+										<Button
+											className={styles.journey__button_last}
+											onClick={() => {
+												openModal(elem.id);
+											}}>
+											Edit
+										</Button>
 										<Button
 											className={styles.journey__button_last}
 											onClick={() => {
