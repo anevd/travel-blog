@@ -10,6 +10,7 @@ const initialState = {
 	changesСollection: [],
 	isModalOpen: false,
 	modalIndex: null,
+	modalAction: null,
 };
 
 export function mainReducer(state = initialState, action) {
@@ -64,42 +65,45 @@ export function mainReducer(state = initialState, action) {
 			const boolean = action.payload;
 			return { ...state, isModalOpen: boolean };
 		}
+		case mainTypes.CHANGE_MODAL_ACTION: {
+			const actionType = action.payload;
+			return { ...state, modalAction: actionType };
+		}
 		case mainTypes.COLLECT_CHANGES: {
-			const value = action.payload.value;
-			const property = action.payload.property;
-			const id = action.payload.id;
-			const changes = {
-				id: id,
-				[property]: value,
-			};
-			state.changesСollection.map((el) => {
-				if (el.id === changes[id]) {
-					console.log("yes");
-					for (let key in changes) {
-						if (key === property) {
-							key[value] = value;
-							console.log(key[value]);
-						}
-					}
-				} else return changes;
-			});
+			// const value = action.payload.value;
+			// const property = action.payload.property;
+			// const id = action.payload.id;
+			// const changes = {
+			// 	id: id,
+			// 	[property]: value,
+			// };
+			// const value = action.payload;
+			// console.log(value);
+			// state.changesСollection.map((el) => {
+			// 	if (el.id === changes[id]) {
+			// 		for (let key in changes) {
+			// 			if (key === property) {
+			// 				key[value] = value;
+			// 				console.log(key[value]);
+			// 			}
+			// 		}
+			// 	} else return changes;
+			// });
 			return {
 				...state,
-				changesСollection: [
-					...state.changesСollection,
-					changes,
-					// state.changesСollection.map((el) => {
-					// 	if (el.id === changes[id]) {
-					// 		console.log("yes");
-					// 		for (let key in changes) {
-					// 			if (key === property) {
-					// 				key[value] = value;
-					// 				console.log(key[value]);
-					// 			}
-					// 		}
-					// 	} else return changes;
-					// }),
-				],
+				// changesСollection: value,
+				// changes,
+				// state.changesСollection.map((el) => {
+				// 	if (el.id === changes[id]) {
+				// 		console.log("yes");
+				// 		for (let key in changes) {
+				// 			if (key === property) {
+				// 				key[value] = value;
+				// 				console.log(key[value]);
+				// 			}
+				// 		}
+				// 	} else return changes;
+				// }),
 			};
 		}
 

@@ -51,15 +51,15 @@ export const changeModalVisibilityAC = (boolean) => ({
 	payload: boolean,
 });
 
-export const collectChangesAC = (value, property, id, country) => ({
-	type: mainTypes.COLLECT_CHANGES,
-	payload: {
-		value: value,
-		property: property,
-		id: id,
-		country: country,
-	},
+export const changeModalActionAC = (action) => ({
+	type: mainTypes.CHANGE_MODAL_ACTION,
+	payload: action,
 });
+
+// export const collectChangesAC = (value) => ({
+// 	type: mainTypes.COLLECT_CHANGES,
+// 	payload: value,
+// });
 
 export const getPointsAC = (points) => ({
 	type: mainTypes.GET_POINTS,

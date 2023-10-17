@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import countryList from "react-select-country-list";
 import axios from "axios";
 import ModalCard from "../ModalCard/ModalCard";
-import { changeModalVisibilityAC } from "../../store/actions/mainActions";
+import { changeModalVisibilityAC, collectChangesAC } from "../../store/actions/mainActions";
 import styles from "./createAndEditModal.module.css";
+import { useEffect } from "react";
 
-function CreateAndEditModal({ action, country }) {
+function CreateAndEditModal() {
 	const dispatch = useDispatch();
-	const { changesСollection, isModalOpen, modalIndex, countries } = useSelector((store) => store.mainStore);
+	const { changesСollection, isModalOpen, modalIndex, modalAction, countries } = useSelector((store) => store.mainStore);
 	// const [isModalOpen, setIsModalOpen] = useState(false);
 	const options = useMemo(() => countryList().getData(), []);
 	const categories = ["Attractions", "Hotels", "Restaurants"];
 	const [category, setCategory] = useState(categories[0]);
-	console.log(changesСollection);
+
 	const handleCancel = () => {
 		dispatch(changeModalVisibilityAC(false));
 	};
@@ -56,9 +57,9 @@ function CreateAndEditModal({ action, country }) {
 
 	return (
 		<>
-			{country.id === modalIndex ? (
+			{isModalOpen === true ? (
 				<Modal
-					title={`${action} an information`}
+					title={`${modalAction} an information`}
 					open={isModalOpen}
 					onOk={handleSubmit}
 					onCancel={handleCancel}
@@ -72,19 +73,62 @@ function CreateAndEditModal({ action, country }) {
 							Save
 						</Button>,
 					]}>
-					<Select
-						className={styles.modal__choice}
-						defaultValue={country.country}
-						disabled
-						showSearch
-						optionFilterProp="children"
-						options={options.map((item) => ({
-							value: item.label,
-							label: item.label,
-						}))}
-					/>
+					{modalIndex !== countries.length ? (
+						<>
+							<Select
+								className={styles.modal__choice}
+								defaultValue={countries[modalIndex].country}
+								disabled
+								showSearch
+								optionFilterProp="children"
+								options={options.map((item) => ({
+									value: item.label,
+									label: item.label,
+								}))}
+							/>
+							<Card
+								title={
+									<div className={styles.modal__item}>
+										<div className={styles.modal__itemText}>Select a category</div>
+										<Select
+											className={styles.modal__input}
+											defaultValue={category}
+											showSearch
+											placeholder="Select a category"
+											value={category}
+											optionFilterProp="children"
+											onChange={(value) => {
+												setCategory(value);
+											}}
+											options={categories.map((item) => ({
+												value: item,
+												label: item,
+											}))}
+										/>
+									</div>
+								}>
+								<div className={styles.modal__wrapper}>
+									{countries[modalIndex][category.toLowerCase()].map((el, index) => (
+										<ModalCard country={countries[modalIndex]} category={category.toLowerCase()} key={index} place={el} index={index} />
+									))}
+									<Button shape="circle">+</Button>
+								</div>
+							</Card>
+						</>
+					) : (
+						<Select
+							className={styles.modal__choice}
+							defaultValue={options[0]}
+							showSearch
+							optionFilterProp="children"
+							options={options.map((item) => ({
+								value: item.label,
+								label: item.label,
+							}))}
+						/>
+					)}
 
-					<Card
+					{/* <Card
 						title={
 							<div className={styles.modal__item}>
 								<div className={styles.modal__itemText}>Select a category</div>
@@ -95,8 +139,8 @@ function CreateAndEditModal({ action, country }) {
 									placeholder="Select a category"
 									value={category}
 									optionFilterProp="children"
-									onChange={(event) => {
-										setCategory(event);
+									onChange={(value) => {
+										setCategory(value);
 									}}
 									options={categories.map((item) => ({
 										value: item,
@@ -106,15 +150,21 @@ function CreateAndEditModal({ action, country }) {
 							</div>
 						}>
 						<div className={styles.modal__wrapper}>
-							{country[category.toLowerCase()].map((el, index) => (
-								<ModalCard country={country[modalIndex]} category={category.toLowerCase()} key={index} place={el} />
+							{countries[modalIndex][category.toLowerCase()].map((el, index) => (
+								<ModalCard country={countries[modalIndex]} category={category.toLowerCase()} key={index} place={el} index={index} />
 							))}
+							<Button shape="circle" >+</Button>
 						</div>
-					</Card>
+					</Card> */}
 				</Modal>
 			) : (
 				<></>
 			)}
+
+			{/* ) : (
+					<></>
+				);
+			})} */}
 		</>
 	);
 }

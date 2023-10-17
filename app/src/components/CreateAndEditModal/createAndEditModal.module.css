@@ -9,6 +9,7 @@
 
 .modal__wrapper {
 	display: flex;
+	align-items: center;
 }
 
 .modal__item {

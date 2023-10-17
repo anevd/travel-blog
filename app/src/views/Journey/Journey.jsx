@@ -5,8 +5,8 @@ import { ExclamationCircleFilled } from "@ant-design/icons";
 import styles from "./journey.module.css";
 import CardItem from "../../components/CardItem/CardItem";
 import Dog from "../../components/Dog/Dog";
-import ModalComponent from "../../components/CreateAndEditModal/CreateAndEditModal";
-import { getDogThunk, getCountriesThunk, deleteCountryAC, changeModalIndexAC } from "../../store/actions/mainActions";
+import CreateAndEditModal from "../../components/CreateAndEditModal/CreateAndEditModal";
+import { getDogThunk, getCountriesThunk, deleteCountryAC, changeModalVisibilityAC, changeModalIndexAC, changeModalActionAC } from "../../store/actions/mainActions";
 import axios from "axios";
 const { confirm } = Modal;
 
@@ -49,15 +49,25 @@ const Journey = () => {
 			},
 		});
 	}
-	const openModal = (id) => {
-		dispatch(changeModalIndexAC(id));
+	const openModal = (index, action) => {
+		dispatch(changeModalIndexAC(index));
+		dispatch(changeModalActionAC(action));
+		dispatch(changeModalVisibilityAC(true));
 	};
 
 	return (
 		<section className={styles.journey}>
 			<div className="container">
 				<h2 className={styles.journey__title}>What to visit, where to eat and stay</h2>
+				<CreateAndEditModal />
 				<div className={styles.journey__content}>
+					<Button
+						className={styles.journey__button}
+						onClick={() => {
+							openModal(countries.length, "Add");
+						}}>
+						Add a country
+					</Button>
 					{countries.map((elem, index) => (
 						<Card
 							key={Date.now() + index}
@@ -65,11 +75,10 @@ const Journey = () => {
 								<div className={styles.journey__cardTitle}>
 									<div>{elem.country}</div>
 									<div>
-										<ModalComponent action={"Edit"} country={elem} countries={countries} />
 										<Button
 											className={styles.journey__button_last}
 											onClick={() => {
-												openModal(elem.id);
+												openModal(index, "Edit");
 											}}>
 											Edit
 										</Button>
