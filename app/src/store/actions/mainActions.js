@@ -41,6 +41,16 @@ export const deleteCountryAC = (id) => ({
 	payload: id,
 });
 
+export const addCountryAC = (country) => ({
+	type: mainTypes.ADD_COUNTRY,
+	payload: country,
+});
+
+export const editCountryAC = (country) => ({
+	type: mainTypes.EDIT_COUNTRY,
+	payload: country,
+});
+
 export const changeModalIndexAC = (index) => ({
 	type: mainTypes.CHANGE_MODAL_INDEX,
 	payload: index,

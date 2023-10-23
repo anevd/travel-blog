@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Collapse, Button, Modal, Card, notification } from "antd";
-import { ExclamationCircleFilled } from "@ant-design/icons";
+import { Form, Input, Collapse, Button, Modal, Card, notification } from "antd";
+import { ExclamationCircleFilled, SearchOutlined } from "@ant-design/icons";
 import styles from "./journey.module.css";
 import CardItem from "../../components/CardItem/CardItem";
 import Dog from "../../components/Dog/Dog";
@@ -12,7 +12,7 @@ const { confirm } = Modal;
 
 const Journey = () => {
 	const dispatch = useDispatch();
-	const { dog, countries } = useSelector((store) => store.mainStore);
+	const { dog, countries, isModalOpen } = useSelector((store) => store.mainStore);
 	useEffect(() => {
 		if (Object.keys(dog).length === 0) {
 			dispatch(getDogThunk());
@@ -59,15 +59,18 @@ const Journey = () => {
 		<section className={styles.journey}>
 			<div className="container">
 				<h2 className={styles.journey__title}>What to visit, where to eat and stay</h2>
-				<CreateAndEditModal />
-				<div className={styles.journey__content}>
+				<Form className={styles.journey__panel}>
+					<Input addonBefore={<SearchOutlined />} size="large" placeholder="search by country" />
 					<Button
-						className={styles.journey__button}
+						className={styles.journey__panelButton}
 						onClick={() => {
 							openModal(countries.length, "Add");
 						}}>
 						Add a country
 					</Button>
+				</Form>
+				{isModalOpen && <CreateAndEditModal />}
+				<div className={styles.journey__content}>
 					{countries.map((elem, index) => (
 						<Card
 							key={Date.now() + index}
@@ -76,7 +79,6 @@ const Journey = () => {
 									<div>{elem.country}</div>
 									<div>
 										<Button
-											className={styles.journey__button_last}
 											onClick={() => {
 												openModal(index, "Edit");
 											}}>

@@ -57,6 +57,36 @@ export function mainReducer(state = initialState, action) {
 				}),
 			};
 		}
+		case mainTypes.ADD_COUNTRY: {
+			const newCountry = action.payload;
+			return {
+				...state,
+				countries: [...state.countries, newCountry],
+			};
+		}
+		case mainTypes.EDIT_COUNTRY: {
+			const changedCountry = action.payload;
+			console.log(changedCountry);
+			return {
+				...state,
+				countries: state.countries.map((el) => {
+					if (el.id === changedCountry.id) {
+						return {
+							...el,
+							attractions: changedCountry.attractions,
+							hotels: changedCountry.hotels,
+							restaurants: changedCountry.restaurants,
+						};
+						// el.image = image;
+						// el.name = name;
+						// el.location = location;
+						// el.description = description;
+						// el.rating = rating;
+					}
+					return el;
+				}),
+			};
+		}
 		case mainTypes.CHANGE_MODAL_INDEX: {
 			const index = action.payload;
 			return { ...state, modalIndex: index, isModalOpen: true };

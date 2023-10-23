@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Collapse, Button, notification } from "antd";
+import { Collapse, Button, Modal, notification } from "antd";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 import styles from "./collapseList.module.css";
 import Dog from "../../components/Dog/Dog";
 import { getDogThunk, getCollapseItemsThunk } from "../../store/actions/mainActions";
 import ReactPlayer from "react-player/youtube";
 import { deleteVideoAC } from "../../store/actions/mainActions";
 import axios from "axios";
+const { confirm } = Modal;
 const Panel = Collapse.Panel;
 
 const CollapseList = () => {
@@ -22,22 +24,49 @@ const CollapseList = () => {
 		}
 	}, []);
 	const { images: dogImages, jokes: dogJokes } = dog;
-	async function deleteVideo(key) {
-		try {
-			const response = await axios.delete(`http://localhost:4000/collapseItems/${key}`);
-
-			if (response.status === 200) {
-				dispatch(deleteVideoAC(key));
-			} else {
-				throw new Error("error");
-			}
-		} catch (error) {
-			notification.error({
-				message: "Error",
-				description: error.message,
-			});
-		}
+	async function showDeleteConfirm(key) {
+		confirm({
+			title: "Are you sure delete this country?",
+			icon: <ExclamationCircleFilled />,
+			okText: "Yes",
+			okType: "danger",
+			cancelText: "No",
+			async onOk() {
+				try {
+					const response = await axios.delete(`http://localhost:4000/collapseItems/${key}`);
+					if (response.status === 200) {
+						dispatch(deleteVideoAC(key));
+					} else {
+						throw new Error("error");
+					}
+				} catch (error) {
+					notification.error({
+						message: "Error",
+						description: error.message,
+					});
+				}
+			},
+			onCancel() {
+				return;
+			},
+		});
 	}
+	// async function deleteVideo(key) {
+	// 	try {
+	// 		const response = await axios.delete(`http://localhost:4000/collapseItems/${key}`);
+
+	// 		if (response.status === 200) {
+	// 			dispatch(deleteVideoAC(key));
+	// 		} else {
+	// 			throw new Error("error");
+	// 		}
+	// 	} catch (error) {
+	// 		notification.error({
+	// 			message: "Error",
+	// 			description: error.message,
+	// 		});
+	// 	}
+	// }
 	return (
 		<section className={styles.collapse}>
 			<div className="container">
@@ -54,8 +83,9 @@ const CollapseList = () => {
 									<div className={styles.collapse__header}>
 										<div>Watch a video about {el.country}</div>
 										<Button
-											onClick={() => {
-												deleteVideo(el.key);
+											onClick={(event) => {
+												event.stopPropagation();
+												showDeleteConfirm(el.key);
 											}}>
 											Delete
 										</Button>

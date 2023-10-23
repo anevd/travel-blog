@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import countryList from "react-select-country-list";
+import countriesList from "country-list-js";
 import styles from "./videoAdding.module.css";
 import { Button, Form, Input, Select } from "antd";
 import axios from "axios";
@@ -13,7 +13,7 @@ function VideoAdding() {
 	const dispatch = useDispatch();
 	const [country, setCountry] = useState("");
 	const [src, setSrc] = useState("");
-	const options = useMemo(() => countryList().getData(), []);
+	const options = useMemo(() => countriesList.names().sort(), []);
 	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
 	async function onFinish() {
@@ -87,8 +87,8 @@ function VideoAdding() {
 								}}
 								filterOption={filterOption}
 								options={options.map((item) => ({
-									value: item.label,
-									label: item.label,
+									value: item,
+									label: item,
 								}))}
 							/>
 						</Form.Item>

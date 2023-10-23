@@ -13,8 +13,18 @@
 	text-align: center;
 }
 
-.journey__button {
+.journey__panel {
+	display: flex;
+	justify-content: space-between;
+	padding: 20px;
 	margin-bottom: 20px;
+	border: 1px solid #d9d9d9;
+	border-radius: 8px;
+}
+
+.journey__panelButton {
+	margin-left: 20px;
+	height: 40px;
 }
 
 .journey__card {

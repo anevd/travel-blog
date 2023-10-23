@@ -12,6 +12,6 @@ module.exports = [
 	{
 		key: "3",
 		country: "Belgium",
-		src: "https://www.youtube.com/embed/WRecr9TYHTk",
+		src: "https://www.youtube.com/embed/o0PT6bOwfFM?si=O8_ijqeckaBkmPl4",
 	},
 ];

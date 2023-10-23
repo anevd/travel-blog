@@ -1,5 +1,5 @@
 .modalCard {
-	width: 250px;
+	width: 300px;
 	margin-right: 15px;
 	padding-top: 10px;
 }
@@ -19,7 +19,4 @@
 .modalCard__itemText {
 	margin-bottom: 10px;
 	font-weight: 600;
-}
-
-.modalCard__input {
 }
