@@ -1,13 +1,14 @@
 .journey__card_inner {
 	width: 30%;
+	margin: 0 20px 16px 0;
+}
+
+.journey__card_wrapper {
+	width: 100%;
 }
 
 .journey__card_rate {
-	margin: 5px 0;
-}
-
-.journey__card_website {
-	font-weight: 700;
+	margin: 10px 0 5px 0;
 }
 
 .journey__card_title {

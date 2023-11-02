@@ -7,47 +7,98 @@
 	text-align: center;
 }
 
+.collapse__panel {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #d9d9d9;
+	border-radius: 8px;
+}
+
+.collapse__panel_countrySearchAndAdding {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.collapse__countrySelect {
+	width: 100%;
+}
+
+.collapse__panel_title {
+	font-size: 14px;
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+
+.collapse__videoSearch {
+	display: block;
+	width: 100%;
+}
+
+.collapse__button {
+	margin-left: 20px;
+	height: 40px;
+}
+
+.collapse__videoResult {
+	display: flex;
+}
+
+.collapse__panel_checkboxAndDatePicker {
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
+}
+
+.collapse__panel_checkbox {
+	margin-left: 20px;
+}
+
+.collapse__wrapper {
+	display: flex;
+	flex-wrap: wrap;
+}
 .collapse__header {
 	display: flex;
 	justify-content: space-between;
 }
 
-.collapse__button {
-	margin-bottom: 20px;
-}
-
 .collapse__video {
-	width: 60%;
-	height: 400px;
+	position: relative;
+	margin: 10px 16px;
+	width: 45%;
 }
 
-@media screen and (max-width: 992px) {
-	.collapse__video {
-		width: 80%;
-	}
+.collapse__videoPlayer {
+	height: 300px;
 }
 
 @media screen and (max-width: 768px) {
 	.collapse__video {
 		width: 100%;
-		height: 350px;
 	}
 }
 
 @media screen and (max-width: 480px) {
-	.collapse__video {
-		height: 200px;
+	.collapse__videoPlayer {
+		height: 250px;
 	}
 }
 
 @media screen and (max-width: 400px) {
 	.collapse__video {
-		height: 170px;
+		margin: 10px 0;
 	}
-}
 
-@media screen and (max-width: 380px) {
-	.collapse__video {
+	.collapse__videoPlayer {
 		height: 140px;
 	}
 }
+
+/* @media screen and (max-width: 380px) {
+	.collapse__video {
+		height: 140px;
+	}
+} */

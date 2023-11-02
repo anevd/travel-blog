@@ -13,6 +13,7 @@ function VideoAdding() {
 	const dispatch = useDispatch();
 	const [country, setCountry] = useState("");
 	const [src, setSrc] = useState("");
+	const [title, setTitle] = useState("");
 	const options = useMemo(() => countriesList.names().sort(), []);
 	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
@@ -23,13 +24,19 @@ function VideoAdding() {
 				const newVideo = {
 					key: Date.now(),
 					country: country,
-					src: src,
+					videos: [
+						{
+							title: title,
+							src: src,
+							date: new Date(),
+						},
+					],
 				};
 				const response = await axios.post("http://localhost:4000/collapseItems", newVideo);
 				if (response.status === 200) {
 					notification.success({
 						message: "Success",
-						description: "The restaurant has been successfully added",
+						description: "The video has been successfully added",
 					});
 					dispatch(addVideoAC(newVideo));
 					setCountry("");
@@ -90,6 +97,24 @@ function VideoAdding() {
 									value: item,
 									label: item,
 								}))}
+							/>
+						</Form.Item>
+						<Form.Item
+							className={styles.form__item}
+							label="Video title"
+							name="title"
+							rules={[
+								{
+									required: true,
+									message: "Please enter a video title",
+								},
+							]}>
+							<Input
+								allowClear
+								value={title}
+								onChange={(event) => {
+									setTitle(event.target.value);
+								}}
 							/>
 						</Form.Item>
 						<Form.Item

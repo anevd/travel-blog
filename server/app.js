@@ -12,6 +12,7 @@ const carouselRouter = require("./routes/carousel");
 const collapseRouter = require("./routes/collapseItems");
 const countriesRouter = require("./routes/countries");
 const pointsRouter = require("./routes/points");
+const cuisinesRouter = require("./routes/cuisines");
 
 const app = express();
 const server = http.createServer(app);
@@ -29,6 +30,7 @@ app.use("/carousel", carouselRouter);
 app.use("/collapseItems", collapseRouter);
 app.use("/countries", countriesRouter);
 app.use("/points", pointsRouter);
+app.use("/cuisines", cuisinesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

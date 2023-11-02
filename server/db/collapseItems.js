@@ -2,16 +2,34 @@ module.exports = [
 	{
 		key: "1",
 		country: "France",
-		src: "https://www.youtube.com/embed/6lxg0NKZjOE",
+		videos: [
+			{
+				title: "France 4K - Scenic Relaxation Film",
+				src: "https://www.youtube.com/embed/6lxg0NKZjOE",
+				date: new Date(2023, 9, 15),
+			},
+		],
 	},
 	{
 		key: "2",
 		country: "Portugal",
-		src: "https://www.youtube.com/embed/rR-1KlR6FtI",
+		videos: [
+			{
+				title: "Portugal 4K - Scenic Relaxation Film",
+				src: "https://www.youtube.com/embed/rR-1KlR6FtI",
+				date: new Date(2023, 9, 16),
+			},
+		],
 	},
 	{
 		key: "3",
 		country: "Belgium",
-		src: "https://www.youtube.com/embed/o0PT6bOwfFM?si=O8_ijqeckaBkmPl4",
+		videos: [
+			{
+				title: "10 Best Places to Visit in Belgium",
+				src: "https://www.youtube.com/embed/o0PT6bOwfFM?si=O8_ijqeckaBkmPl4",
+				date: new Date(2023, 9, 17),
+			},
+		],
 	},
 ];

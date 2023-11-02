@@ -6,8 +6,8 @@ const initialState = {
 	carouselData: [],
 	collapseItems: [],
 	countries: [],
+	cuisines: [],
 	points: [],
-	changesСollection: [],
 	isModalOpen: false,
 	modalIndex: null,
 	modalAction: null,
@@ -33,7 +33,7 @@ export function mainReducer(state = initialState, action) {
 		}
 		case mainTypes.ADD_VIDEO: {
 			const newVideo = action.payload;
-			return { ...state, collapseItems: [...state.collapseItems, newVideo] };
+			return { ...state, collapseItems: [newVideo, ...state.collapseItems] };
 		}
 		case mainTypes.DELETE_VIDEO: {
 			const key = action.payload;
@@ -48,6 +48,10 @@ export function mainReducer(state = initialState, action) {
 			const countries = action.payload;
 			return { ...state, countries };
 		}
+		case mainTypes.GET_CUISINES: {
+			const cuisines = action.payload;
+			return { ...state, cuisines };
+		}
 		case mainTypes.DELETE_COUNTRY: {
 			const id = action.payload;
 			return {
@@ -61,30 +65,26 @@ export function mainReducer(state = initialState, action) {
 			const newCountry = action.payload;
 			return {
 				...state,
-				countries: [...state.countries, newCountry],
+				countries: [newCountry, ...state.countries],
 			};
 		}
 		case mainTypes.EDIT_COUNTRY: {
 			const changedCountry = action.payload;
-			console.log(changedCountry);
+			const copy = state.countries;
+			copy.map((el) => {
+				if (el.id === changedCountry.id) {
+					return {
+						...el,
+						attractions: changedCountry.attractions,
+						hotels: changedCountry.hotels,
+						restaurants: changedCountry.restaurants,
+					};
+				}
+				return el;
+			});
 			return {
 				...state,
-				countries: state.countries.map((el) => {
-					if (el.id === changedCountry.id) {
-						return {
-							...el,
-							attractions: changedCountry.attractions,
-							hotels: changedCountry.hotels,
-							restaurants: changedCountry.restaurants,
-						};
-						// el.image = image;
-						// el.name = name;
-						// el.location = location;
-						// el.description = description;
-						// el.rating = rating;
-					}
-					return el;
-				}),
+				countries: copy,
 			};
 		}
 		case mainTypes.CHANGE_MODAL_INDEX: {
@@ -98,43 +98,6 @@ export function mainReducer(state = initialState, action) {
 		case mainTypes.CHANGE_MODAL_ACTION: {
 			const actionType = action.payload;
 			return { ...state, modalAction: actionType };
-		}
-		case mainTypes.COLLECT_CHANGES: {
-			// const value = action.payload.value;
-			// const property = action.payload.property;
-			// const id = action.payload.id;
-			// const changes = {
-			// 	id: id,
-			// 	[property]: value,
-			// };
-			// const value = action.payload;
-			// console.log(value);
-			// state.changesСollection.map((el) => {
-			// 	if (el.id === changes[id]) {
-			// 		for (let key in changes) {
-			// 			if (key === property) {
-			// 				key[value] = value;
-			// 				console.log(key[value]);
-			// 			}
-			// 		}
-			// 	} else return changes;
-			// });
-			return {
-				...state,
-				// changesСollection: value,
-				// changes,
-				// state.changesСollection.map((el) => {
-				// 	if (el.id === changes[id]) {
-				// 		console.log("yes");
-				// 		for (let key in changes) {
-				// 			if (key === property) {
-				// 				key[value] = value;
-				// 				console.log(key[value]);
-				// 			}
-				// 		}
-				// 	} else return changes;
-				// }),
-			};
 		}
 
 		case mainTypes.GET_POINTS: {

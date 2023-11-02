@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import About from "../About/About";
-import PhotoSlider from "../../components/PhotoSlider/PhotoSlider";
+import PhotoSlider from "../PhotoSlider/PhotoSlider";
 import styles from "./helloPage.module.css";
 import Dog from "../../components/Dog/Dog";
 import { getDogThunk, getCarouselDataThunk } from "../../store/actions/mainActions";

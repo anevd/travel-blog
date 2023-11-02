@@ -14,7 +14,7 @@ function CardItem({ name, id, photo, location, rating, website, cuisines, priceR
 				{cuisines && (
 					<div>
 						<h3 className={styles.journey__card_title}>CUISINES:</h3>
-						<div>{cuisines}</div>
+						<div>{cuisines.join(", ")}</div>
 					</div>
 				)}
 				{priceRange && (

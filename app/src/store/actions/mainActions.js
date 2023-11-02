@@ -36,6 +36,11 @@ export const getCountriesAC = (countries) => ({
 	payload: countries,
 });
 
+export const getCuisinesAC = (cuisines) => ({
+	type: mainTypes.GET_CUISINES,
+	payload: cuisines,
+});
+
 export const deleteCountryAC = (id) => ({
 	type: mainTypes.DELETE_COUNTRY,
 	payload: id,
@@ -65,11 +70,6 @@ export const changeModalActionAC = (action) => ({
 	type: mainTypes.CHANGE_MODAL_ACTION,
 	payload: action,
 });
-
-// export const collectChangesAC = (value) => ({
-// 	type: mainTypes.COLLECT_CHANGES,
-// 	payload: value,
-// });
 
 export const getPointsAC = (points) => ({
 	type: mainTypes.GET_POINTS,
@@ -103,6 +103,12 @@ export const getCollapseItemsThunk = () => async (dispatch) => {
 export const getCountriesThunk = () => async (dispatch) => {
 	await axios.get("http://localhost:4000/countries").then((resp) => {
 		dispatch(getCountriesAC(resp.data));
+	});
+};
+
+export const getCuisinesThunk = () => async (dispatch) => {
+	await axios.get("http://localhost:4000/cuisines").then((resp) => {
+		dispatch(getCuisinesAC(resp.data));
 	});
 };
 

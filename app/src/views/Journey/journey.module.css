@@ -15,16 +15,52 @@
 
 .journey__panel {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
 	padding: 20px;
 	margin-bottom: 20px;
 	border: 1px solid #d9d9d9;
 	border-radius: 8px;
 }
 
+.journey__panel_searchAndAdd {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.journey__panel_countrySelect {
+	width: 100%;
+}
+
 .journey__panelButton {
 	margin-left: 20px;
 	height: 40px;
+}
+
+.journey__panel_checkboxAll {
+	border-right: 1px solid #d9d9d9;
+	margin-right: 10px;
+}
+
+.journey__panelItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 30%;
+	margin-top: 20px;
+	padding: 0 10px 10px 10px;
+	border: 1px solid #d9d9d9;
+	border-radius: 8px;
+}
+
+.journey__panelItem_title {
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+.journey__panelItem_content {
+	margin-top: 10px;
 }
 
 .journey__card {
@@ -47,7 +83,6 @@
 
 .journey__collapse_content {
 	display: flex;
-	justify-content: space-between;
 	flex-wrap: wrap;
 }
 

@@ -8,8 +8,11 @@
 }
 
 .modal__wrapper {
+	width: 100%;
 	display: flex;
 	align-items: center;
+	overflow-x: scroll;
+	white-space: nowrap;
 }
 
 .modal__item {

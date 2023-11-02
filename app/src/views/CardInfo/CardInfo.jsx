@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import styles from "./cardInfo.module.css";
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
-import PhotoSlider from "../../components/PhotoSlider/PhotoSlider";
+import PhotoSlider from "../PhotoSlider/PhotoSlider";
 import { Rate } from "antd";
 import Dog from "../../components/Dog/Dog";
 import { getDogThunk, getCountriesThunk } from "../../store/actions/mainActions";
@@ -82,7 +82,7 @@ function CardInfo() {
 						{currentCard.cuisines && (
 							<div className={styles.cardInfo__cuisines}>
 								<h3>CUISINES:</h3>
-								<div>{currentCard.cuisines}</div>
+								<div>{currentCard.cuisines.join(", ")}</div>
 							</div>
 						)}
 						{currentCard.priceRange && (

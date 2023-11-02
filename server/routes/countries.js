@@ -5,15 +5,15 @@ const countries = require("../db/countries");
 router.get("/", function (req, res) {
 	countries.map((el) => {
 		el.attractions.map((elem, index) => {
-			elem.id = el.id + index + 1;
+			elem.id = el.id * 10 + index;
 			return elem;
 		});
 		el.hotels.map((elem, index) => {
-			elem.id = el.id + index + 20;
+			elem.id = el.id * 100 + index;
 			return elem;
 		});
 		el.restaurants.map((elem, index) => {
-			elem.id = el.id + index + 40;
+			elem.id = el.id * 1000 + index;
 			return elem;
 		});
 	});
@@ -22,7 +22,7 @@ router.get("/", function (req, res) {
 
 router.post("/", function (req, res) {
 	const newCountry = req.body;
-	countries.push(newCountry);
+	countries.unshift(newCountry);
 	res.status(200).end();
 });
 

@@ -154,7 +154,7 @@ module.exports = [
 				description:
 					"Just 50 meters from Plaza Mayor, we have brought a piece of the Amazon jungle to Madrid. At JUNGLEKING, you will find the perfect combination of a delicious brunch in a jungle-like atmosphere that will transport you. Since its inauguration in 2023, our team has worked hard to offer a unique, fresh, and cool experience. Enjoy an unforgettable brunch surrounded by plants and good vibes!",
 				priceRange: "RUB 1,023 - RUB 3,070",
-				cuisines: "American, International, Cafe, European, Portuguese",
+				cuisines: ["American", "International", "European", "Portuguese"],
 				photoCarousel: [
 					{
 						photo: "https://media-cdn.tripadvisor.com/media/photo-w/29/26/59/77/hamburguesa-real.jpg",
@@ -178,7 +178,7 @@ module.exports = [
 				description:
 					"It is the best Galician restaurant in Madrid. Enjoy original recipes and signature cocktails in a cozy setting. Jose Espasandín, businessman and restaurateur, launches the illusion of his life: his own place that began as a neighborhood restaurant. Thus, in 1997, the Los Montes de Galicia. His dedication and the utmost attention to detail, as well as his strong commitment to quality products, quickly made him a successful restaurant.",
 				priceRange: "RUB 5,117 - RUB 8,187",
-				cuisines: "Spanish, International, Mediterranean, Healthy",
+				cuisines: ["Spanish", "International", "Mediterranean", "Healthy"],
 				photoCarousel: [
 					{
 						photo: "https://media-cdn.tripadvisor.com/media/photo-o/09/26/08/3d/los-montes-de-galicia.jpg",
@@ -202,7 +202,7 @@ module.exports = [
 				description:
 					"La Gastronómica was born in 2017 in Barcelona, in the neighborhood of Sant Antoni. It is born with a very clear concept: Dishes fully prepared by our team with the best quality ingredients and open kitchen to show the entire elaboration process. Today La Gastronómica has two places with two different offers: a restaurant focused on tapas and dishes and a gourmet burger place with special beers.",
 				priceRange: "RUB 1,228 - RUB 1,535",
-				cuisines: "Street Food",
+				cuisines: ["Street Food"],
 				photoCarousel: [
 					{
 						photo: "https://media-cdn.tripadvisor.com/media/photo-w/1d/cf/31/fc/grill.jpg",
@@ -375,7 +375,7 @@ module.exports = [
 				description:
 					"Restaurant Bougainville is a destination unto itself and offers the finest, unique and sensory gastronomic experience – and this experience all starts with personal attention, an elegant setting and a panoramic view of Amsterdam’s city centre.s",
 				priceRange: "RUB 10,131 - RUB 12,178",
-				cuisines: "International, European",
+				cuisines: ["International", "European"],
 				photoCarousel: [
 					{
 						photo: "https://media-cdn.tripadvisor.com/media/photo-w/18/58/15/77/northsea-crab.jpg",
@@ -399,7 +399,7 @@ module.exports = [
 				description:
 					"At Graham's Kitchen, you are always warmly welcomed. Relax in a calm atmosphere while enjoying the superb flavours and presentation of each culinary delight. From working lunches to romantic dinners, or a group of friends or family celebrating a landmark occasion, Graham and his team make it their duty to give you a memorable experience.",
 				priceRange: "RUB 4,196 - RUB 7,675",
-				cuisines: "European, Contemporary",
+				cuisines: ["European", "Contemporary"],
 				photoCarousel: [
 					{
 						photo: "https://res.cloudinary.com/tf-lab/image/upload/w_3840,c_fill,q_auto,f_auto/f_auto,q_auto,w_800,c_limit/customer/e3f53200-beae-46c2-8e97-5ba9380949a3/1a97312f-448c-4b76-bafa-272d5543addf.jpg",
@@ -423,7 +423,7 @@ module.exports = [
 				description:
 					"Restaurant Guru is well known for its traditional dishes and street food. They have lots of vegan and vegetarian options. The atmosphere is friendly and cozy. Their snacks are delicious and their special mutton – goat meat – is a must-try if you like goat meat. They have over a hundred places so that makes them one of the biggest Indian restaurants in Amsterdam.",
 				priceRange: "RUB 1,493 - RUB 2,986",
-				cuisines: "Indian, Asian, Grill, Diner, Street Food",
+				cuisines: ["Indian", "Asian", "Grill", "Street Food"],
 				photoCarousel: [
 					{
 						photo: "https://pr1.nicelocal.co.nl/Yocg7v3m482me3tvg8iv_g/2400x1350,q85/4px-BW84_n09ryec7oCQ4OzN6-w4TgAcM7-me-pM6KDTFMKGHC1o9ybIrZYHhWR0diVYqE1WkjA",
@@ -596,7 +596,7 @@ module.exports = [
 				description:
 					"On the menu of Instinct, the bistronomy! Homemade cuisine, seasonal products, colorful, tasty and above all GOURMET dishes. For us, this is the `bistronomic` combo. At the helm of the kitchen, chef-associate-passionate (yes all this at once) Maximilian Wollek! After cooking for beautiful houses where he was able to sharpen his knives and perfect his talent for the `refined-gourmand`, he now follows his instinct to cook our ideas and sharpen... your taste buds.",
 				priceRange: "RUB 3,582 - RUB 6,447",
-				cuisines: "French, European, Healthy",
+				cuisines: ["French", "European", "Healthy"],
 				photoCarousel: [
 					{
 						photo: "https://media-cdn.tripadvisor.com/media/photo-o/19/1b/94/57/peche-du-jour.jpg",
@@ -620,7 +620,7 @@ module.exports = [
 				description:
 					"We invite you to come and rediscover the concept of Tartare through associations of flavors, the power of tastes and the delicacy that characterize our creations. A cuisine where conviviality, pleasure and originality through fresh and carefully selected products to make your taste buds shudder!",
 				priceRange: "RUB 1,535 - RUB 2,763",
-				cuisines: "French, Contemporary, Wine Bar",
+				cuisines: ["French", "Contemporary", "Wine Bar"],
 				photoCarousel: [
 					{
 						photo: "https://media-cdn.tripadvisor.com/media/photo-p/1b/f5/6b/32/saumon-tropical.jpg",
@@ -644,7 +644,7 @@ module.exports = [
 				description:
 					"Quite a romantic cafe with non-trivial author's cuisine and excellent drinks. The interior is made in a modern loft style, without unnecessary design solutions, apart from a couple of barrel-tables. Whitewashed walls, wooden furniture of simple silhouettes, retro pendants with light bulbs hang from the ceiling. The menu is very compact, some positions change depending on the availability of the product.",
 				priceRange: "RUB 512 - RUB 2,558",
-				cuisines: "South American, Brew Pub, European",
+				cuisines: ["South American", "Brew Pub", "European"],
 				photoCarousel: [
 					{
 						photo: "https://media-cdn.tripadvisor.com/media/photo-w/0e/b9/08/0a/thomasbl-photofr.jpg",

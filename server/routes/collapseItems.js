@@ -8,7 +8,12 @@ router.get("/", function (req, res) {
 
 router.post("/", function (req, res) {
 	const newVideo = req.body;
-	collapseItems.push(newVideo);
+	const index = collapseItems.findIndex((el) => el.country === newVideo.country);
+	if (index === -1) {
+		collapseItems.unshift(newVideo);
+	} else {
+		collapseItems[index].videos.push(newVideo.videos[0]);
+	}
 	res.status(200).end();
 });
 

@@ -1,49 +1,87 @@
 import React, { useState, useMemo } from "react";
-import { Button, Modal, Form, Select, Input, Card, notification } from "antd";
+import { Button, Modal, Select, Card, notification } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import countriesList from "country-list-js";
 import axios from "axios";
 import ModalCard from "../ModalCard/ModalCard";
 import { changeModalVisibilityAC, addCountryAC, editCountryAC } from "../../store/actions/mainActions";
 import styles from "./createAndEditModal.module.css";
-import { useEffect } from "react";
-import { contentQuotesLinter } from "@ant-design/cssinjs/lib/linters";
 
 function CreateAndEditModal() {
 	const dispatch = useDispatch();
-	const { changesСollection, isModalOpen, modalIndex, modalAction, countries } = useSelector((store) => store.mainStore);
-
-	// const [isModalOpen, setIsModalOpen] = useState(false);
+	const { isModalOpen, modalIndex, modalAction, countries } = useSelector((store) => store.mainStore);
 	const options = useMemo(() => countriesList.names().sort(), []);
 	const categories = ["Attractions", "Hotels", "Restaurants"];
 	const emptyPlaces = {
 		attractionEmpty: {
+			id: (modalIndex + 1) * 100 * 10 + Date.now(),
 			name: "",
 			location: "",
 			coordinates: [],
 			photo: "",
 			description: "",
-			photoCarousel: [],
+			photoCarousel: [
+				{
+					photo: "",
+					description: "",
+				},
+				{
+					photo: "",
+					description: "",
+				},
+				{
+					photo: "",
+					description: "",
+				},
+			],
 		},
 		hotelEmpty: {
+			id: (modalIndex + 1) * 100 * 100 + Date.now(),
 			name: "",
 			location: "",
 			coordinates: [],
 			photo: "",
 			description: "",
-			rating: 0,
+			rating: 1,
 			website: "",
-			photoCarousel: [],
+			photoCarousel: [
+				{
+					photo: "",
+					description: "",
+				},
+				{
+					photo: "",
+					description: "",
+				},
+				{
+					photo: "",
+					description: "",
+				},
+			],
 		},
 		restaurantEmpty: {
+			id: (modalIndex + 1) * 100 * 1000 + Date.now(),
 			name: "",
 			location: "",
 			coordinates: [],
 			photo: "",
 			description: "",
 			priceRange: "",
-			cuisines: "",
-			photoCarousel: [],
+			cuisines: [],
+			photoCarousel: [
+				{
+					photo: "",
+					description: "",
+				},
+				{
+					photo: "",
+					description: "",
+				},
+				{
+					photo: "",
+					description: "",
+				},
+			],
 		},
 	};
 
@@ -66,16 +104,38 @@ function CreateAndEditModal() {
 		const categoryObject = category.slice(0, -1) + "Empty";
 		const changedCountry = {};
 		Object.assign(changedCountry, choosenCountry);
-		changedCountry[category].push(emptyPlaces[categoryObject]);
+		const newCard = {};
+		Object.assign(newCard, emptyPlaces[categoryObject]);
+		newCard.id = changedCountry.id * 100 + Date.now();
+		changedCountry[category].push(newCard);
 		setChoosenCountry(changedCountry);
 	}
 
-	function changeModalCard(category, property, event, index) {
+	function deleteModalCard(category, id) {
 		const changedCountry = {};
 		Object.assign(changedCountry, choosenCountry);
-		if (property === "rating") {
-			changedCountry[category][index][property] = event;
-		} else changedCountry[category][index][property] = event.target.value;
+		changedCountry[category].map((el, index) => {
+			if (el.id === id) {
+				changedCountry[category].splice(index, 1);
+			}
+		});
+		setChoosenCountry(changedCountry);
+	}
+
+	function changeModalCard(category, property, event, id, index, photoCarouselField) {
+		const changedCountry = {};
+
+		Object.assign(changedCountry, choosenCountry);
+		changedCountry[category].map((el) => {
+			if (el.id === id) {
+				if (property === "photoCarousel") {
+					console.log(el[property]);
+					el[property][index][photoCarouselField] = event.target.value;
+				} else if (property === "rating" || property === "cuisines") {
+					el[property] = event;
+				} else el[property] = event.target.value;
+			}
+		});
 		setChoosenCountry(changedCountry);
 	}
 
@@ -84,6 +144,25 @@ function CreateAndEditModal() {
 		Object.assign(changedCountry, choosenCountry);
 		changedCountry.country = value;
 		changedCountry.capital = countriesList.findByName(value).capital;
+		setChoosenCountry(changedCountry);
+	}
+
+	function changePhotoCarousel(category, property, action, id, index) {
+		const changedCountry = {};
+		Object.assign(changedCountry, choosenCountry);
+		changedCountry[category].map((el) => {
+			if (el.id === id) {
+				if (action === "add") {
+					el[property].push({
+						photo: "",
+						description: "",
+					});
+				}
+				if (action === "delete") {
+					el[property].splice(index, 1);
+				}
+			}
+		});
 		setChoosenCountry(changedCountry);
 	}
 
@@ -101,6 +180,13 @@ function CreateAndEditModal() {
 				if (Array.isArray(choosenCountry[key])) {
 					choosenCountry[key].forEach((el) => {
 						for (let item in el) {
+							if (item === "rating" && el[item] === 0) {
+								emptyFields += 1;
+								notification.error({
+									message: "Incorrect rating",
+									description: `Please rate from 1 to 5`,
+								});
+							}
 							if (el[item] === "") {
 								emptyFields += 1;
 								notification.error({
@@ -206,14 +292,11 @@ function CreateAndEditModal() {
 											category={category.toLowerCase()}
 											key={index}
 											place={el}
-											index={index}
 											changeModalCard={changeModalCard}
-											modalIndex={modalIndex}
+											deleteModalCard={deleteModalCard}
+											changePhotoCarousel={changePhotoCarousel}
 										/>
 									))}
-									{/* {countries[modalIndex][category.toLowerCase()].map((el, index) => (
-										<ModalCard country={countries[modalIndex]} category={category.toLowerCase()} key={index} place={el} index={index} />
-									))} */}
 									<Button shape="circle">+</Button>
 								</div>
 							</Card>
@@ -253,7 +336,15 @@ function CreateAndEditModal() {
 								}>
 								<div className={styles.modal__wrapper}>
 									{choosenCountry[category.toLowerCase()].map((el, index) => (
-										<ModalCard country={choosenCountry} category={category.toLowerCase()} key={index} place={el} index={index} changeModalCard={changeModalCard} />
+										<ModalCard
+											country={choosenCountry}
+											category={category.toLowerCase()}
+											key={index}
+											place={el}
+											changeModalCard={changeModalCard}
+											deleteModalCard={deleteModalCard}
+											changePhotoCarousel={changePhotoCarousel}
+										/>
 									))}
 									<Button shape="circle" onClick={() => addFormInCategory(category.toLowerCase())}>
 										+
@@ -262,44 +353,10 @@ function CreateAndEditModal() {
 							</Card>
 						</>
 					)}
-
-					{/* <Card
-						title={
-							<div className={styles.modal__item}>
-								<div className={styles.modal__itemText}>Select a category</div>
-								<Select
-									className={styles.modal__input}
-									defaultValue={category}
-									showSearch
-									placeholder="Select a category"
-									value={category}
-									optionFilterProp="children"
-									onChange={(value) => {
-										setCategory(value);
-									}}
-									options={categories.map((item) => ({
-										value: item,
-										label: item,
-									}))}
-								/>
-							</div>
-						}>
-						<div className={styles.modal__wrapper}>
-							{countries[modalIndex][category.toLowerCase()].map((el, index) => (
-								<ModalCard country={countries[modalIndex]} category={category.toLowerCase()} key={index} place={el} index={index} />
-							))}
-							<Button shape="circle" >+</Button>
-						</div>
-					</Card> */}
 				</Modal>
 			) : (
 				<></>
 			)}
-
-			{/* ) : (
-					<></>
-				);
-			})} */}
 		</>
 	);
 }
