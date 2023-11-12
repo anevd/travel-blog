@@ -1,36 +1,60 @@
-.journey__card_inner {
+.cardItem__inner {
 	width: 30%;
-	margin: 0 20px 16px 0;
+	margin: 0 1% 16px 1%;
+	text-decoration: none;
 }
 
-.journey__card_wrapper {
+.cardItem__cover {
+	height: 180px;
+	object-fit: cover;
+}
+
+.cardItem__location {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.cardItem__description {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-top: 15px;
+}
+
+.cardItem__wrapper {
 	width: 100%;
 }
 
-.journey__card_rate {
+.cardItem__rate {
 	margin: 10px 0 5px 0;
 }
 
-.journey__card_title {
+.cardItem__cuisines {
+	overflow-x: scroll;
+	height: 70px;
+}
+
+.cardItem__title {
 	margin: 10px 0 0 0;
 }
 
 @media screen and (max-width: 768px) {
-	.journey__card_inner {
+	.cardItem__inner {
 		width: 45%;
 		margin-top: 20px;
 	}
-	.journey__card_inner:nth-child(1),
-	.journey__card_inner:nth-child(2) {
+	.cardItem__inner:nth-child(1),
+	.cardItem__inner:nth-child(2) {
 		margin-top: 0;
 	}
 }
 
 @media screen and (max-width: 480px) {
-	.journey__card_inner {
+	.cardItem__inner {
 		width: 100%;
 	}
-	.journey__card_inner:nth-child(2) {
+	.cardItem__inner:nth-child(2) {
 		margin-top: 20px;
 	}
 }

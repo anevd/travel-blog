@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { Collapse, Button, Modal, Card, Select, Checkbox, DatePicker, notification } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
@@ -22,17 +21,37 @@ const CollapseList = () => {
 	const [countrySearch, setCountrySearch] = useState(undefined);
 	const [searchBar, setSearchBar] = useState(undefined);
 	const [videoSearch, setVideoSearch] = useState("");
+	const [recentlyAddedChecked, setRecentlyAddedChecked] = useState(false);
 	const copyCollapseItems = [...collapseItems];
 	const videoSearchResult = [];
 	const [datePicker, setDatePicker] = useState(null);
 
 	copyCollapseItems.forEach((el) => {
 		el.videos.forEach((elem) => {
-			if (elem.title.includes(videoSearch) && (el.country === countrySearch || countrySearch === undefined)) {
+			if (recentlyAddedChecked && datePicker === null && videoSearch === "" && countrySearch === undefined) {
 				videoSearchResult.push(elem);
+			} else {
+				if (datePicker === null) {
+					if (elem.title.toLowerCase().indexOf(videoSearch.toLowerCase()) >= 0 && videoSearch !== "" && (el.country === countrySearch || countrySearch === undefined)) {
+						videoSearchResult.push(elem);
+					}
+				} else {
+					if (
+						(elem.title.toLowerCase().indexOf(videoSearch.toLowerCase()) >= 0 && videoSearch !== "" && (el.country === countrySearch || countrySearch === undefined)) ||
+						videoSearch === ""
+					) {
+						if (datePicker === null || (Date.parse(elem.date) >= datePicker[0].getTime() && Date.parse(elem.date) <= datePicker[1].getTime())) {
+							videoSearchResult.push(elem);
+						}
+					}
+				}
 			}
 		});
 	});
+
+	if (recentlyAddedChecked) {
+		videoSearchResult.sort((video1, video2) => (Date.parse(video1.date) < Date.parse(video2.date) ? 1 : -1));
+	}
 
 	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 	const options = copyCollapseItems.map((el) => {
@@ -99,8 +118,8 @@ const CollapseList = () => {
 							filterOption={filterOption}
 							options={options}
 							value={countrySearch}
-							onChange={(event) => {
-								setCountrySearch(event);
+							onChange={(value) => {
+								setCountrySearch(value);
 							}}
 						/>
 						<Link to="/add-video">
@@ -116,15 +135,21 @@ const CollapseList = () => {
 							onChange={(value) => {
 								if (value !== null) {
 									const start = new Date(value[0].$y, value[0].$M, value[0].$D);
-									const end = new Date(value[0].$y, value[0].$M, value[0].$D);
+									const end = new Date(value[1].$y, value[1].$M, value[1].$D);
 									setDatePicker([start, end]);
 								} else setDatePicker(value);
 							}}
 						/>
-						<Checkbox className={styles.collapse__panel_checkbox}>Recently Added</Checkbox>
+						<Checkbox
+							className={styles.collapse__panel_checkbox}
+							onChange={(event) => {
+								setRecentlyAddedChecked(event.target.checked);
+							}}>
+							Recently Added
+						</Checkbox>
 					</div>
 				</div>
-				{videoSearch.length !== 0 && (
+				{(videoSearch !== "" || videoSearchResult.length !== 0) && (
 					<div className={styles.collapse__videoResult}>
 						{videoSearchResult.map((el, index) => (
 							<Card
@@ -135,13 +160,12 @@ const CollapseList = () => {
 										<ReactPlayer url={el.src} width="100%" height="100%" />
 									</div>
 								}>
-								{console.log(el.date)}
 								<Meta title={el.title} />
 							</Card>
 						))}
 					</div>
 				)}
-				{videoSearch.length === 0 && (
+				{videoSearch === "" && !recentlyAddedChecked && (
 					<Collapse>
 						{collapseItems.map(
 							(el) =>

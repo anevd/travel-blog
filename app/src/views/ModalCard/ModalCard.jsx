@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Card, Rate, Select, Button } from "antd";
+import { Input, InputNumber, Card, Rate, Select, Button } from "antd";
 import { CloseOutlined, PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { getCuisinesThunk } from "../../store/actions/mainActions";
 import styles from "./modalCard.module.css";
@@ -60,7 +60,7 @@ function ModalCard({ country, category, place, changeModalCard, deleteModalCard,
 				<>
 					<div className={styles.modalCard__item}>
 						<div className={styles.modalCard__itemText}>Rating</div>
-						<Rate allowHalf defaultValue={place.rating} onChange={(event) => handleInput(event, category, "rating", place.id)} />
+						<Rate allowHalf allowClear={false} defaultValue={place.rating} onChange={(event) => handleInput(event, category, "rating", place.id)} />
 					</div>
 					<div className={styles.modalCard__item}>
 						<div className={styles.modalCard__itemText}>Website</div>
@@ -72,7 +72,15 @@ function ModalCard({ country, category, place, changeModalCard, deleteModalCard,
 				<>
 					<div className={styles.modalCard__item}>
 						<div className={styles.modalCard__itemText}>Price range</div>
-						<Input allowClear value={place.priceRange} onChange={(event) => handleInput(event, category, "priceRange", place.id)} />
+						<InputNumber
+							allowClear
+							formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+							parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+							min={0}
+							max={1000}
+							value={place.priceRange}
+							onChange={(event) => handleInput(event, category, "priceRange", place.id)}
+						/>
 					</div>
 					<div className={styles.modalCard__item}>
 						<div className={styles.modalCard__itemText}>Cuisines</div>

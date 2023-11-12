@@ -1,0 +1,22 @@
+.countryCard__card {
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+.countryCard__cardTitle {
+	display: flex;
+	justify-content: space-between;
+}
+
+.countryCard__button {
+	margin-left: 10px;
+}
+
+.countryCard__collapse {
+	margin-bottom: 10px;
+}
+
+.countryCard__collapse_content {
+	display: flex;
+	flex-wrap: wrap;
+}

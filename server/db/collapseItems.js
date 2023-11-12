@@ -6,7 +6,7 @@ module.exports = [
 			{
 				title: "France 4K - Scenic Relaxation Film",
 				src: "https://www.youtube.com/embed/6lxg0NKZjOE",
-				date: new Date(2023, 9, 15),
+				date: new Date(2023, 9, 10),
 			},
 		],
 	},
@@ -17,7 +17,7 @@ module.exports = [
 			{
 				title: "Portugal 4K - Scenic Relaxation Film",
 				src: "https://www.youtube.com/embed/rR-1KlR6FtI",
-				date: new Date(2023, 9, 16),
+				date: new Date(2023, 9, 15),
 			},
 		],
 	},
@@ -28,7 +28,7 @@ module.exports = [
 			{
 				title: "10 Best Places to Visit in Belgium",
 				src: "https://www.youtube.com/embed/o0PT6bOwfFM?si=O8_ijqeckaBkmPl4",
-				date: new Date(2023, 9, 17),
+				date: new Date(2023, 9, 01),
 			},
 		],
 	},

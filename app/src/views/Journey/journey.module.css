@@ -8,6 +8,27 @@
 	flex-wrap: wrap;
 }
 
+.journey__countryPlaces {
+	width: 100%;
+}
+
+.journey__countryHeader {
+	display: flex;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.journey__countryTitle {
+	font-weight: 700;
+	font-size: 20px;
+}
+
+.journey__countryWrapper {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 15px;
+}
+
 .journey__title {
 	font-size: 30px;
 	text-align: center;
@@ -60,30 +81,8 @@
 }
 
 .journey__panelItem_content {
-	margin-top: 10px;
-}
-
-.journey__card {
 	width: 100%;
-	margin-bottom: 30px;
-}
-
-.journey__cardTitle {
-	display: flex;
-	justify-content: space-between;
-}
-
-.journey__button_last {
-	margin-left: 10px;
-}
-
-.journey__collapse {
-	margin-bottom: 10px;
-}
-
-.journey__collapse_content {
-	display: flex;
-	flex-wrap: wrap;
+	margin-top: 10px;
 }
 
 @media screen and (max-width: 480px) {

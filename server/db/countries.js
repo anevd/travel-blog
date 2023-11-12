@@ -153,7 +153,7 @@ module.exports = [
 				photo: "https://media-cdn.tripadvisor.com/media/photo-w/29/99/9c/d2/vista-de-afuera.jpg",
 				description:
 					"Just 50 meters from Plaza Mayor, we have brought a piece of the Amazon jungle to Madrid. At JUNGLEKING, you will find the perfect combination of a delicious brunch in a jungle-like atmosphere that will transport you. Since its inauguration in 2023, our team has worked hard to offer a unique, fresh, and cool experience. Enjoy an unforgettable brunch surrounded by plants and good vibes!",
-				priceRange: "RUB 1,023 - RUB 3,070",
+				priceRange: [11, 33],
 				cuisines: ["American", "International", "European", "Portuguese"],
 				photoCarousel: [
 					{
@@ -177,7 +177,7 @@ module.exports = [
 				photo: "https://foodyt.com/media/uploads/montes-galicia-home-final-banner.jpg",
 				description:
 					"It is the best Galician restaurant in Madrid. Enjoy original recipes and signature cocktails in a cozy setting. Jose Espasandín, businessman and restaurateur, launches the illusion of his life: his own place that began as a neighborhood restaurant. Thus, in 1997, the Los Montes de Galicia. His dedication and the utmost attention to detail, as well as his strong commitment to quality products, quickly made him a successful restaurant.",
-				priceRange: "RUB 5,117 - RUB 8,187",
+				priceRange: [55, 88],
 				cuisines: ["Spanish", "International", "Mediterranean", "Healthy"],
 				photoCarousel: [
 					{
@@ -201,7 +201,7 @@ module.exports = [
 				photo: "https://media-cdn.tripadvisor.com/media/photo-w/1d/cf/2d/cb/bbq-bacon-cheese-burger.jpg",
 				description:
 					"La Gastronómica was born in 2017 in Barcelona, in the neighborhood of Sant Antoni. It is born with a very clear concept: Dishes fully prepared by our team with the best quality ingredients and open kitchen to show the entire elaboration process. Today La Gastronómica has two places with two different offers: a restaurant focused on tapas and dishes and a gourmet burger place with special beers.",
-				priceRange: "RUB 1,228 - RUB 1,535",
+				priceRange: [13.2, 16.5],
 				cuisines: ["Street Food"],
 				photoCarousel: [
 					{
@@ -374,7 +374,7 @@ module.exports = [
 				photo: "https://www.thestaffcanteen.com/public/js/tinymce/plugins/moxiemanager/data/files/Bougainville%20Amsterdam.jpg",
 				description:
 					"Restaurant Bougainville is a destination unto itself and offers the finest, unique and sensory gastronomic experience – and this experience all starts with personal attention, an elegant setting and a panoramic view of Amsterdam’s city centre.s",
-				priceRange: "RUB 10,131 - RUB 12,178",
+				priceRange: [109, 130.5],
 				cuisines: ["International", "European"],
 				photoCarousel: [
 					{
@@ -398,7 +398,7 @@ module.exports = [
 				photo: "https://media-cdn.tripadvisor.com/media/photo-w/14/55/93/ec/chefs-table.jpg",
 				description:
 					"At Graham's Kitchen, you are always warmly welcomed. Relax in a calm atmosphere while enjoying the superb flavours and presentation of each culinary delight. From working lunches to romantic dinners, or a group of friends or family celebrating a landmark occasion, Graham and his team make it their duty to give you a memorable experience.",
-				priceRange: "RUB 4,196 - RUB 7,675",
+				priceRange: [45, 82.5],
 				cuisines: ["European", "Contemporary"],
 				photoCarousel: [
 					{
@@ -422,7 +422,7 @@ module.exports = [
 				photo: "https://media-cdn.tripadvisor.com/media/photo-s/24/ca/8d/6d/a-look-inside-our-restaurant.jpg",
 				description:
 					"Restaurant Guru is well known for its traditional dishes and street food. They have lots of vegan and vegetarian options. The atmosphere is friendly and cozy. Their snacks are delicious and their special mutton – goat meat – is a must-try if you like goat meat. They have over a hundred places so that makes them one of the biggest Indian restaurants in Amsterdam.",
-				priceRange: "RUB 1,493 - RUB 2,986",
+				priceRange: [16, 32],
 				cuisines: ["Indian", "Asian", "Grill", "Street Food"],
 				photoCarousel: [
 					{
@@ -494,7 +494,7 @@ module.exports = [
 				name: "Château de Versailles",
 				location: "Versailles",
 				coordinates: [48.798092, 2.1114684],
-				photo: "https://www.remontez.ru/web/upload/images/5140/200415500865_61088.jpg",
+				photo: "https://traveltimes.ru/wp-content/uploads/2021/07/versalskij-dvorec-2048x1363.jpg",
 				description:
 					"The Palace of Versailles is a former royal residence built by King Louis XIV located in Versailles, about 19 kilometers west of Paris, France. About 15,000,000 people visit the palace, park, or gardens of Versailles every year, making it one of the most popular tourist attractions in the world. The palace and park were designated a World Heritage Site by UNESCO in 1979 for its importance as the center of power, art, and science in France during the 17th and 18th centuries. The French Ministry of Culture has placed the palace, its gardens, and some of its subsidiary structures on its list of culturally significant monuments.",
 				photoCarousel: [
@@ -542,7 +542,7 @@ module.exports = [
 				name: "Victoria Palace Hotel",
 				location: "6 Rue Blaise Desgoffe, 6th arr., 75006 Paris, France",
 				coordinates: [48.8437509, 2.319228],
-				photo: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/296167631.jpg?k=9fe31f2d23bccdad9eda6838cf4a2c1e9ceb467b68e8281402cebac453e8b168&o=&hp=1",
+				photo: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/307631476.jpg?k=a311a98f18edb7369e67078922406fba9fc627cbf224035e2e1c70df7cfbd99f&o=&hp=1",
 				description:
 					"The Victoria Palace Hotel opened its doors for you to discover the elegant and intimate style of its 92 rooms. Look a little further and step out onto the terrace, where you will discover a refreshing oasis nestled at the heart of the hotel. An eco-friendly and welcoming Parisian hotel that puts nature first. ",
 				rating: 4.5,
@@ -595,7 +595,7 @@ module.exports = [
 				photo: "https://media-cdn.tripadvisor.com/media/photo-s/19/1b/97/46/bistrot-instinct.jpg",
 				description:
 					"On the menu of Instinct, the bistronomy! Homemade cuisine, seasonal products, colorful, tasty and above all GOURMET dishes. For us, this is the `bistronomic` combo. At the helm of the kitchen, chef-associate-passionate (yes all this at once) Maximilian Wollek! After cooking for beautiful houses where he was able to sharpen his knives and perfect his talent for the `refined-gourmand`, he now follows his instinct to cook our ideas and sharpen... your taste buds.",
-				priceRange: "RUB 3,582 - RUB 6,447",
+				priceRange: [38.5, 69.3],
 				cuisines: ["French", "European", "Healthy"],
 				photoCarousel: [
 					{
@@ -619,7 +619,7 @@ module.exports = [
 				photo: "https://media-cdn.tripadvisor.com/media/photo-w/27/7e/d1/ea/caption.jpg",
 				description:
 					"We invite you to come and rediscover the concept of Tartare through associations of flavors, the power of tastes and the delicacy that characterize our creations. A cuisine where conviviality, pleasure and originality through fresh and carefully selected products to make your taste buds shudder!",
-				priceRange: "RUB 1,535 - RUB 2,763",
+				priceRange: [16.5, 29.7],
 				cuisines: ["French", "Contemporary", "Wine Bar"],
 				photoCarousel: [
 					{
@@ -643,7 +643,7 @@ module.exports = [
 				photo: "https://secretparisien.com/wp-content/uploads/2017/08/Les-Apotres-de-Pigalle.jpg",
 				description:
 					"Quite a romantic cafe with non-trivial author's cuisine and excellent drinks. The interior is made in a modern loft style, without unnecessary design solutions, apart from a couple of barrel-tables. Whitewashed walls, wooden furniture of simple silhouettes, retro pendants with light bulbs hang from the ceiling. The menu is very compact, some positions change depending on the availability of the product.",
-				priceRange: "RUB 512 - RUB 2,558",
+				priceRange: [5.5, 27.5],
 				cuisines: ["South American", "Brew Pub", "European"],
 				photoCarousel: [
 					{
