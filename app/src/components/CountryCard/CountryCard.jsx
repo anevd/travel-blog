@@ -1,48 +1,46 @@
 import React from "react";
-import { Collapse, Button, Card } from "antd";
+import { Collapse, Button, Card, Divider } from "antd";
 import CardItem from "../../views/CardItem/CardItem";
 import styles from "./countryCard.module.css";
+const { Meta } = Card;
 
 function CountryCard({ country, shownCard = {}, setShownCard, index, openModal, showDeleteConfirm, checkedList, selectedCuisines, filteredRating }) {
 	return (
-		<Card
-			key={Date.now() + index}
-			title={
-				<div className={styles.countryCard__cardTitle}>
-					<div>{country.country}</div>
+		<Card key={Date.now() + index} cover={<img className={styles.countryCard__img} alt={country.country} src={country.photo} />} className={styles.countryCard__card}>
+			<div className={styles.countryCard__header}>
+				<div className={styles.countryCard__title}>{country.country}</div>
 
-					<div>
-						{Object.keys(shownCard).length !== 0 && (
+				<div className={styles.countryCard__buttons}>
+					{Object.keys(shownCard).length !== 0 && (
+						<Button
+							className={styles.countryCard__button}
+							onClick={() => {
+								setShownCard({});
+							}}>
+							Close card
+						</Button>
+					)}
+					{Object.keys(shownCard).length === 0 && (
+						<>
 							<Button
 								className={styles.countryCard__button}
 								onClick={() => {
-									setShownCard({});
+									openModal(index, "Edit");
 								}}>
-								Close card
+								Edit
 							</Button>
-						)}
-						{Object.keys(shownCard).length === 0 && (
-							<>
-								<Button
-									className={styles.countryCard__button}
-									onClick={() => {
-										openModal(index, "Edit");
-									}}>
-									Edit
-								</Button>
-								<Button
-									className={styles.countryCard__button}
-									onClick={() => {
-										showDeleteConfirm(country.id);
-									}}>
-									Delete
-								</Button>
-							</>
-						)}
-					</div>
+							<Button
+								className={styles.countryCard__button}
+								onClick={() => {
+									showDeleteConfirm(country.id);
+								}}>
+								Delete
+							</Button>
+						</>
+					)}
 				</div>
-			}
-			className={styles.countryCard__card}>
+			</div>
+			<Divider />
 			{((checkedList.length > 1 && checkedList.includes("Attractions")) || checkedList.length === 0) && (
 				<Collapse
 					className={styles.countryCard__collapse}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Checkbox, Collapse, Button, Modal, Card, Rate, Select, TreeSelect, notification } from "antd";
+import { Checkbox, List, Pagination, Button, Modal, Rate, Select, TreeSelect, notification } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import styles from "./journey.module.css";
 import CardItem from "../CardItem/CardItem";
@@ -26,7 +26,9 @@ const Journey = () => {
 	const [categoryPlaces, setCategoryPlaces] = useState([]);
 	const [filteredPlaces, setFilteredPlaces] = useState(categoryPlaces);
 	const [shownCard, setShownCard] = useState({});
+	const [page, setPage] = useState(1);
 	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+	const elementsPerPage = 2;
 	const options = copyCountries.map((el) => {
 		return {
 			value: el.country,
@@ -102,6 +104,7 @@ const Journey = () => {
 
 	const onCheckboxChange = (list) => {
 		setShownCard({});
+		setPage(1);
 		const placesList = [];
 		setCheckedList(list);
 		if (list.length === 1) {
@@ -120,6 +123,7 @@ const Journey = () => {
 			countries.forEach((country) => {
 				const obj = {};
 				obj.country = country.country;
+				obj.photo = country.photo;
 				list.forEach((el) => {
 					obj[el.toLowerCase()] = country[el.toLowerCase()];
 				});
@@ -225,75 +229,83 @@ const Journey = () => {
 				<div className={styles.journey__content}>
 					{checkedList.length === 1 && (
 						<>
+							{console.log(filteredPlaces)}
 							{filteredPlaces.map((country, index) => (
-								<div key={index} className={styles.journey__countryPlaces}>
-									{country.places.length !== 0 && (country.country === countrySearch || countrySearch === undefined) && (
-										<>
-											{((country.category === "Hotels" && country.places.filter((place) => place.rating >= filteredRating).length > 0) ||
-												(country.category === "Restaurants" &&
-													(country.places.filter((place) => place.cuisines.filter((cuisine) => selectedCuisines.indexOf(cuisine) !== -1).length > 0).length > 0 ||
-														selectedCuisines.length === 0 ||
-														selectedCuisines.indexOf("All") !== -1))) && (
-												<div className={styles.journey__countryHeader}>
-													<div className={styles.journey__countryTitle}>Searching results in "{country.country}"</div>
-													<Button
-														className={styles.journey__panelButton}
-														onClick={() => {
-															countries.forEach((el) => {
-																if (el.country === country.country) {
-																	setShownCard(el);
-																}
-															});
-														}}>
-														Show country card
-													</Button>
-												</div>
-											)}
-											<div className={styles.journey__countryWrapper}>
-												{shownCard.country === country.country && (
-													<CountryCard
-														country={shownCard}
-														shownCard={shownCard}
-														setShownCard={setShownCard}
-														index={index}
-														openModal={openModal}
-														showDeleteConfirm={showDeleteConfirm}
-														checkedList={[]}
-														selectedCuisines={selectedCuisines}
-														filteredRating={filteredRating}
-													/>
-												)}
-												{country.places.map((place, i) => (
-													<>
-														{Object.keys(shownCard).length !== 0 && <div></div>}
-														{(country.category === "Attractions" ||
-															(country.category === "Hotels" && place.rating >= filteredRating) ||
-															(country.category === "Restaurants" &&
-																(place.cuisines.filter((cuisine) => selectedCuisines.indexOf(cuisine) !== -1).length !== 0 ||
-																	selectedCuisines.length === 0 ||
-																	selectedCuisines.indexOf("All") !== -1))) && (
-															<CardItem
-																key={Date.now() + i}
-																name={place.name}
-																id={place.id}
-																photo={place.photo}
-																location={place.location}
-																description={place.description}
-																rating={place.rating}
-																website={place.website}
-																cuisines={place.cuisines}
-																priceRange={place.priceRange}
-																index={i}
-																country={country.country}
-																type={checkedList[0].toLowerCase()}
+								<>
+									{index >= page * elementsPerPage - elementsPerPage && index < page * elementsPerPage && (
+										<div key={index} className={styles.journey__countryPlaces}>
+											{country.places.length !== 0 && (country.country === countrySearch || countrySearch === undefined) && (
+												<>
+													{(country.category === "Attractions" ||
+														(country.category === "Hotels" && country.places.filter((place) => place.rating >= filteredRating).length > 0) ||
+														(country.category === "Restaurants" &&
+															(country.places.filter((place) => place.cuisines.filter((cuisine) => selectedCuisines.indexOf(cuisine) !== -1).length > 0).length > 0 ||
+																selectedCuisines.length === 0 ||
+																selectedCuisines.indexOf("All") !== -1))) && (
+														<div className={styles.journey__countryHeader}>
+															<div className={styles.journey__countryTitle}>Searching results in "{country.country}"</div>
+															<Button
+																className={styles.journey__panelButton}
+																onClick={() => {
+																	countries.forEach((el) => {
+																		if (el.country === country.country) {
+																			setShownCard(el);
+																		}
+																	});
+																}}>
+																Show country card
+															</Button>
+														</div>
+													)}
+													<div className={styles.journey__countryWrapper}>
+														{shownCard.country === country.country && (
+															<CountryCard
+																country={shownCard}
+																shownCard={shownCard}
+																setShownCard={setShownCard}
+																index={index}
+																openModal={openModal}
+																showDeleteConfirm={showDeleteConfirm}
+																checkedList={[]}
+																selectedCuisines={selectedCuisines}
+																filteredRating={filteredRating}
 															/>
 														)}
-													</>
-												))}
-											</div>
-										</>
+														{country.places.map((place, i) => (
+															<>
+																{/* {Object.keys(shownCard).length !== 0 && <div></div>} */}
+
+																{shownCard.country !== country.country &&
+																	(country.category === "Attractions" ||
+																		(country.category === "Hotels" && place.rating >= filteredRating) ||
+																		(country.category === "Restaurants" &&
+																			(place.cuisines.filter((cuisine) => selectedCuisines.indexOf(cuisine) !== -1).length !== 0 ||
+																				selectedCuisines.length === 0 ||
+																				selectedCuisines.indexOf("All") !== -1))) && (
+																		<CardItem
+																			key={Date.now() + i}
+																			name={place.name}
+																			id={place.id}
+																			photo={place.photo}
+																			location={place.location}
+																			description={place.description}
+																			rating={place.rating}
+																			website={place.website}
+																			cuisines={place.cuisines}
+																			priceRange={place.priceRange}
+																			index={i}
+																			country={country.country}
+																			type={checkedList[0].toLowerCase()}
+																		/>
+																	)}
+															</>
+														))}
+													</div>
+												</>
+											)}
+										</div>
 									)}
-								</div>
+								</>
 							))}
 						</>
 					)}
@@ -302,6 +314,8 @@ const Journey = () => {
 						<>
 							{choosenCheckboxList.map(
 								(country, index) =>
+									index >= page * elementsPerPage - elementsPerPage &&
+									index < page * elementsPerPage &&
 									(country.country === countrySearch || countrySearch === undefined) && (
 										<CountryCard
 											country={country}
@@ -317,6 +331,16 @@ const Journey = () => {
 						</>
 					)}
 				</div>
+				<Pagination
+					current={page}
+					total={countries.length}
+					pageSize={elementsPerPage}
+					className={styles.journey__pagination}
+					onChange={(value) => {
+						setShownCard({});
+						setPage(value);
+					}}
+				/>
 			</div>
 
 			{Object.keys(dog).length !== 0 && <Dog image={dogImages[3].src} joke={dogJokes[0].text} />}

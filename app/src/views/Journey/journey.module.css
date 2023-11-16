@@ -85,8 +85,30 @@
 	margin-top: 10px;
 }
 
+.journey__pagination {
+	margin: 20px 0;
+	display: flex;
+	justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+	.journey__panelItem {
+		width: 50%;
+	}
+}
+
 @media screen and (max-width: 480px) {
 	.journey__collapse_content {
 		flex-direction: column;
+	}
+	.journey__panelItem {
+		width: 80%;
+	}
+	.journey__panel_searchAndAdd {
+		flex-direction: column;
+	}
+
+	.journey__panelButton {
+		margin: 20px 0 0 0;
 	}
 }

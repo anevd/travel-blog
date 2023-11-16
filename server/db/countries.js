@@ -3,6 +3,7 @@ module.exports = [
 		id: 100,
 		country: "Spain",
 		capital: "Madrid",
+		photo: "https://thailand-good.ru/wp-content/uploads/a/7/4/a744cc3604d40a159d27f7e2d28a1cec.jpeg",
 		attractions: [
 			{
 				name: "Temple Expiatori de la Sagrada Familia",
@@ -224,6 +225,7 @@ module.exports = [
 		id: 200,
 		country: "The Netherlands",
 		capital: "Amsterdam",
+		photo: "https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663407899_16-mykaleidoscope-ru-p-niderlandi-stolitsa-amsterdam-instagram-18.jpg",
 		attractions: [
 			{
 				name: "Jordaan and Amsterdam's Canals",
@@ -445,6 +447,7 @@ module.exports = [
 		id: 300,
 		country: "France",
 		capital: "Paris",
+		photo: "https://www.tripsavvy.com/thmb/Vqvsnx2Iu8hgifUaYpV45CpsEFw=/4800x3200/filters:fill(auto,1)/sunset-over-eiffel-tower-in-paris-584665373-59033f3e3df78c5456e7131f.jpg",
 		attractions: [
 			{
 				name: "Eiffel Tower",

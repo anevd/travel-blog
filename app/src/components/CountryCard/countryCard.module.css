@@ -3,9 +3,28 @@
 	margin-bottom: 30px;
 }
 
-.countryCard__cardTitle {
+.countryCard__img {
+	object-fit: cover;
+	height: 300px;
+}
+
+.countryCard__header {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
+}
+
+.countryCard__title {
+	font-weight: 700;
+	font-size: 16px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.countryCard__buttons {
+	display: flex;
+	justify-content: flex-end;
 }
 
 .countryCard__button {
@@ -19,4 +38,20 @@
 .countryCard__collapse_content {
 	display: flex;
 	flex-wrap: wrap;
+}
+
+@media screen and (max-width: 480px) {
+	.countryCard__img {
+		height: 200px;
+	}
+
+	/* .countryCard__header {
+		height: 80px;
+	}
+
+	.countryCard__buttons {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+	} */
 }
