@@ -229,7 +229,6 @@ const Journey = () => {
 				<div className={styles.journey__content}>
 					{checkedList.length === 1 && (
 						<>
-							{console.log(filteredPlaces)}
 							{filteredPlaces.map((country, index) => (
 								<>
 									{index >= page * elementsPerPage - elementsPerPage && index < page * elementsPerPage && (
