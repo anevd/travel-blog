@@ -21,20 +21,20 @@ const Journey = () => {
 	const [countrySearch, setCountrySearch] = useState(undefined);
 	const [checkedList, setCheckedList] = useState([]);
 	const [filteredRating, setFilteredRating] = useState(1);
-	const copyCountries = JSON.parse(JSON.stringify(countries));
 	const [choosenCheckboxList, setChoosenCheckboxList] = useState(countries);
 	const [categoryPlaces, setCategoryPlaces] = useState([]);
 	const [filteredPlaces, setFilteredPlaces] = useState(categoryPlaces);
 	const [shownCard, setShownCard] = useState({});
 	const [page, setPage] = useState(1);
-	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 	const elementsPerPage = 2;
+	const copyCountries = JSON.parse(JSON.stringify(countries));
 	const options = copyCountries.map((el) => {
 		return {
 			value: el.country,
 			label: el.country,
 		};
 	});
+	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 	useEffect(() => {
 		if (Object.keys(cuisines).length === 0) {
 			dispatch(getCuisinesThunk());

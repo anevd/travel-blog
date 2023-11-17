@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from "react";
-import { Button, Modal, Select, Card, notification } from "antd";
+import React, { useState } from "react";
+import { Button, Modal, Select, Card, notification, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import countriesList from "country-list-js";
 import axios from "axios";
@@ -10,7 +10,13 @@ import styles from "./createAndEditModal.module.css";
 function CreateAndEditModal() {
 	const dispatch = useDispatch();
 	const { isModalOpen, modalIndex, modalAction, countries } = useSelector((store) => store.mainStore);
-	const options = useMemo(() => countriesList.names().sort(), []);
+	const copyCountries = JSON.parse(JSON.stringify(countries));
+	const countriesArray = copyCountries.map((el) => el.country);
+	const options = countriesList
+		.names()
+		.sort()
+		.filter((el) => countriesArray.indexOf(el) === -1);
+	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 	const categories = ["Attractions", "Hotels", "Restaurants"];
 	const emptyPlaces = {
 		attractionEmpty: {
@@ -92,6 +98,7 @@ function CreateAndEditModal() {
 					id: (modalIndex + 1) * 100,
 					country: options[0],
 					capital: countriesList.findByName(options[0]).capital,
+					photo: "",
 					attractions: [emptyPlaces.attractionEmpty],
 					hotels: [emptyPlaces.hotelEmpty],
 					restaurants: [emptyPlaces.restaurantEmpty],
@@ -129,7 +136,6 @@ function CreateAndEditModal() {
 		changedCountry[category].map((el) => {
 			if (el.id === id) {
 				if (property === "photoCarousel") {
-					console.log(el[property]);
 					el[property][index][photoCarouselField] = event.target.value;
 				} else if (property === "rating" || property === "cuisines") {
 					el[property] = event;
@@ -139,11 +145,12 @@ function CreateAndEditModal() {
 		setChoosenCountry(changedCountry);
 	}
 
-	function changeCountry(value) {
+	function changeCountry(value, photo) {
 		const changedCountry = {};
 		Object.assign(changedCountry, choosenCountry);
 		changedCountry.country = value;
 		changedCountry.capital = countriesList.findByName(value).capital;
+		changedCountry.photo = photo;
 		setChoosenCountry(changedCountry);
 	}
 
@@ -308,11 +315,18 @@ function CreateAndEditModal() {
 								value={choosenCountry.country}
 								showSearch
 								optionFilterProp="children"
+								filterOption={filterOption}
 								options={options.map((item) => ({
 									value: item,
 									label: item,
 								}))}
-								onChange={(value) => changeCountry(value)}
+								onChange={(value) => changeCountry(value, choosenCountry.photo)}
+							/>
+							<Input
+								value={choosenCountry.photo}
+								placeholder="country photo link"
+								className={styles.modal__countryPhoto}
+								onChange={(event) => changeCountry(choosenCountry.country, event.target.value)}
 							/>
 							<Card
 								title={
