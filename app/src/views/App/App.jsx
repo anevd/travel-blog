@@ -1,3 +1,5 @@
+import { Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import HelloPage from "../HelloPage/HelloPage";
@@ -6,9 +8,7 @@ import VideoAdding from "../VideoAdding/VideoAdding";
 import Journey from "../Journey/Journey";
 import TravelMap from "../TravelMap/TravelMap";
 import CardInfo from "../CardInfo/CardInfo";
-import { Provider } from "react-redux";
 import store from "../../store/store";
-import { Routes, Route } from "react-router-dom";
 
 function App() {
 	return (

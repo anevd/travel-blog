@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import styles from "./header.module.css";
-import { Link } from "react-router-dom";
+
 const { Header } = Layout;
 
-const HeaderComponent = () => {
+function HeaderComponent() {
 	const menu = {
 		About: "/",
 		Video: "/video",
@@ -30,6 +31,6 @@ const HeaderComponent = () => {
 			</div>
 		</Header>
 	);
-};
+}
 
 export default HeaderComponent;

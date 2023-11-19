@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
-import styles from "./cardInfo.module.css";
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
-import PhotoSlider from "../PhotoSlider/PhotoSlider";
 import { Rate } from "antd";
-import Dog from "../../components/Dog/Dog";
 import { getDogThunk, getCountriesThunk } from "../../store/actions/mainActions";
+import PhotoSlider from "../PhotoSlider/PhotoSlider";
+import Dog from "../../components/Dog/Dog";
+import styles from "./cardInfo.module.css";
 
 function CardInfo() {
 	const dispatch = useDispatch();

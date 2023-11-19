@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Checkbox, List, Pagination, Button, Modal, Rate, Select, TreeSelect, notification } from "antd";
+import { Checkbox, Pagination, Button, Modal, Rate, Select, TreeSelect, notification } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import styles from "./journey.module.css";
 import CardItem from "../CardItem/CardItem";
 import CountryCard from "../../components/CountryCard/CountryCard";
 import Dog from "../../components/Dog/Dog";
 import CreateAndEditModal from "../CreateAndEditModal/CreateAndEditModal";
 import { getDogThunk, getCountriesThunk, getCuisinesThunk, deleteCountryAC, changeModalVisibilityAC, changeModalIndexAC, changeModalActionAC } from "../../store/actions/mainActions";
 import axios from "axios";
+import styles from "./journey.module.css";
+
 const { confirm } = Modal;
 const CheckboxGroup = Checkbox.Group;
 const plainOptions = ["Attractions", "Hotels", "Restaurants"];
@@ -272,8 +273,6 @@ const Journey = () => {
 														)}
 														{country.places.map((place, i) => (
 															<>
-																{/* {Object.keys(shownCard).length !== 0 && <div></div>} */}
-
 																{shownCard.country !== country.country &&
 																	(country.category === "Attractions" ||
 																		(country.category === "Hotels" && place.rating >= filteredRating) ||

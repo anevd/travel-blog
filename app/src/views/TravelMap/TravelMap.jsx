@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./travelMap.module.css";
 import { YMaps, Map, ObjectManager } from "@pbe/react-yandex-maps";
-import Dog from "../../components/Dog/Dog";
 import { getDogThunk, getPointsThunk } from "../../store/actions/mainActions";
+import Dog from "../../components/Dog/Dog";
+import styles from "./travelMap.module.css";
 
 function TravelMap() {
 	const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./cardItem.module.css";
-import { Card, Rate } from "antd";
 import { Link } from "react-router-dom";
+import { Card, Rate } from "antd";
+import styles from "./cardItem.module.css";
 
 const { Meta } = Card;
 

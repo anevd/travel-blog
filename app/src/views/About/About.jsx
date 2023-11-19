@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./about.module.css";
 import { getAboutDataThunk } from "../../store/actions/mainActions";
+import styles from "./about.module.css";
 
 function About() {
 	const dispatch = useDispatch();

@@ -2,7 +2,6 @@ import React from "react";
 import { Collapse, Button, Card, Divider } from "antd";
 import CardItem from "../../views/CardItem/CardItem";
 import styles from "./countryCard.module.css";
-const { Meta } = Card;
 
 function CountryCard({ country, shownCard = {}, setShownCard, index, openModal, showDeleteConfirm, checkedList, selectedCuisines, filteredRating }) {
 	return (

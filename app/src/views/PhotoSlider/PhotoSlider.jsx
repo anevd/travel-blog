@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./photoSlider.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import styles from "./photoSlider.module.css";
 
 const PhotoSlider = ({ data }) => {
 	const sliderSettings = {

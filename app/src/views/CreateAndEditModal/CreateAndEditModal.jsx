@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Button, Modal, Select, Card, notification, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import { Button, Modal, Select, Card, notification, Input } from "antd";
+import { changeModalVisibilityAC, addCountryAC, editCountryAC } from "../../store/actions/mainActions";
 import countriesList from "country-list-js";
 import axios from "axios";
 import ModalCard from "../ModalCard/ModalCard";
-import { changeModalVisibilityAC, addCountryAC, editCountryAC } from "../../store/actions/mainActions";
 import styles from "./createAndEditModal.module.css";
 
 function CreateAndEditModal() {

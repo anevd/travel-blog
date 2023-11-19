@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getDogThunk, getCarouselDataThunk } from "../../store/actions/mainActions";
 import About from "../About/About";
 import PhotoSlider from "../PhotoSlider/PhotoSlider";
-import styles from "./helloPage.module.css";
 import Dog from "../../components/Dog/Dog";
-import { getDogThunk, getCarouselDataThunk } from "../../store/actions/mainActions";
+import styles from "./helloPage.module.css";
 
 function HelloPage() {
 	const dispatch = useDispatch();
