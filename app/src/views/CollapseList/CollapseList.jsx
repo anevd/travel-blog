@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Collapse, Button, Modal, Card, Select, Checkbox, DatePicker, notification } from "antd";
+import { Collapse, Input, Button, Modal, Card, Select, Checkbox, DatePicker, notification } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import { getDogThunk, getCollapseItemsThunk, deleteVideoAC } from "../../store/actions/mainActions";
+import { getDogThunk } from "../../store/actions/dogActions";
+import { getCollapseItemsThunk, deleteCollapseItemThunk } from "../../store/actions/collapseActions";
 import ReactPlayer from "react-player/youtube";
-import axios from "axios";
 import Dog from "../../components/Dog/Dog";
-import SearchBar from "../../components/SearchBar/SearchBar";
 import styles from "./collapseList.module.css";
 const { Meta } = Card;
 const { confirm } = Modal;
@@ -16,14 +15,24 @@ const { RangePicker } = DatePicker;
 
 const CollapseList = () => {
 	const dispatch = useDispatch();
-	const { dog, collapseItems } = useSelector((store) => store.mainStore);
+	const { dog } = useSelector((store) => store.dogStore);
+	const { collapseItems } = useSelector((store) => store.collapseStore);
+	const { images: dogImages, jokes: dogJokes } = dog;
 	const [countrySearch, setCountrySearch] = useState(undefined);
 	const [searchBar, setSearchBar] = useState(undefined);
 	const [videoSearch, setVideoSearch] = useState("");
 	const [recentlyAddedChecked, setRecentlyAddedChecked] = useState(false);
+	const [datePicker, setDatePicker] = useState(null);
+
 	const copyCollapseItems = [...collapseItems];
 	const videoSearchResult = [];
-	const [datePicker, setDatePicker] = useState(null);
+	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+	const options = copyCollapseItems.map((el) => {
+		return {
+			value: el.country,
+			label: el.country,
+		};
+	});
 
 	copyCollapseItems.forEach((el) => {
 		el.videos.forEach((elem) => {
@@ -52,14 +61,6 @@ const CollapseList = () => {
 		videoSearchResult.sort((video1, video2) => (Date.parse(video1.date) < Date.parse(video2.date) ? 1 : -1));
 	}
 
-	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
-	const options = copyCollapseItems.map((el) => {
-		return {
-			value: el.country,
-			label: el.country,
-		};
-	});
-
 	useEffect(() => {
 		if (Object.keys(dog).length === 0) {
 			dispatch(getDogThunk());
@@ -72,7 +73,6 @@ const CollapseList = () => {
 		dispatch(getCollapseItemsThunk());
 	}, [collapseItems.length]);
 
-	const { images: dogImages, jokes: dogJokes } = dog;
 	async function showDeleteConfirm(key) {
 		confirm({
 			title: "Are you sure delete this country?",
@@ -82,12 +82,7 @@ const CollapseList = () => {
 			cancelText: "No",
 			async onOk() {
 				try {
-					const response = await axios.delete(`http://localhost:4000/collapseItems/${key}`);
-					if (response.status === 200) {
-						dispatch(deleteVideoAC(key));
-					} else {
-						throw new Error("error");
-					}
+					dispatch(deleteCollapseItemThunk(key));
 				} catch (error) {
 					notification.error({
 						message: "Error",
@@ -128,7 +123,21 @@ const CollapseList = () => {
 						</Link>
 					</div>
 					<div className={styles.collapse__panel_title}>Search by video name:</div>
-					<SearchBar className={styles.collapse__videoSearch} searchBar={searchBar} setSearchBar={setSearchBar} setResultSearch={setVideoSearch} type="video" />
+					<Input.Search
+						allowClear
+						placeholder="search by video"
+						value={searchBar}
+						onChange={(event) => {
+							if (event.target.value.length === 0) {
+								setSearchBar(event.target.value);
+								setVideoSearch(event.target.value);
+							} else {
+								setSearchBar(event.target.value);
+								setVideoSearch(event.target.value[0].toUpperCase() + event.target.value.slice(1).toLowerCase());
+							}
+						}}
+						enterButton
+					/>
 					<div className={styles.collapse__panel_checkboxAndDatePicker}>
 						<RangePicker
 							onChange={(value) => {

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAboutDataThunk } from "../../store/actions/mainActions";
+import { getAboutDataThunk } from "../../store/actions/aboutActions";
 import styles from "./about.module.css";
 
 function About() {
 	const dispatch = useDispatch();
-	const { helloData } = useSelector((store) => store.mainStore);
+	const { helloData } = useSelector((store) => store.aboutStore);
 	useEffect(() => {
 		if (Object.keys(helloData).length === 0) {
 			dispatch(getAboutDataThunk());

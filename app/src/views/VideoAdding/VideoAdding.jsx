@@ -1,11 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
 import { Button, Form, Input, Select } from "antd";
-import axios from "axios";
 import { notification } from "antd";
-import { addVideoAC } from "../../store/actions/mainActions";
+import { addCollapseItemsThunk } from "../../store/actions/collapseActions";
 import countriesList from "country-list-js";
 import styles from "./videoAdding.module.css";
 
@@ -15,6 +13,7 @@ function VideoAdding() {
 	const [country, setCountry] = useState("");
 	const [src, setSrc] = useState("");
 	const [title, setTitle] = useState("");
+
 	const options = useMemo(() => countriesList.names().sort(), []);
 	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
@@ -33,17 +32,17 @@ function VideoAdding() {
 						},
 					],
 				};
-				const response = await axios.post("http://localhost:4000/collapseItems", newVideo);
-				if (response.status === 200) {
-					notification.success({
-						message: "Success",
-						description: "The video has been successfully added",
-					});
-					dispatch(addVideoAC(newVideo));
-					setCountry("");
-					setSrc("");
-					navigate("/video");
-				}
+				dispatch(addCollapseItemsThunk(newVideo)).then((response) => {
+					if (response.status === 200) {
+						notification.success({
+							message: "Success",
+							description: "The video has been successfully added",
+						});
+						setCountry("");
+						setSrc("");
+						navigate("/video");
+					}
+				});
 			} else {
 				throw new Error("error");
 			}
@@ -54,12 +53,14 @@ function VideoAdding() {
 			});
 		}
 	}
-	const onFinishFailed = (errorInfo) => {
+
+	function onFinishFailed() {
 		notification.error({
 			message: "Error",
 			description: "Check if all fields are filled in",
 		});
-	};
+	}
+
 	return (
 		<section className={styles.videoAdding}>
 			<div className="container">

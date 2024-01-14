@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, Select, Card, notification, Input } from "antd";
-import { changeModalVisibilityAC, addCountryAC, editCountryAC } from "../../store/actions/mainActions";
+import { addCountryThunk, editCountryThunk } from "../../store/actions/countriesActions";
+import { changeModalVisibilityAC } from "../../store/actions/modalActions";
 import countriesList from "country-list-js";
-import axios from "axios";
 import ModalCard from "../ModalCard/ModalCard";
 import styles from "./createAndEditModal.module.css";
 
 function CreateAndEditModal() {
 	const dispatch = useDispatch();
-	const { isModalOpen, modalIndex, modalAction, countries } = useSelector((store) => store.mainStore);
+	const { countries } = useSelector((store) => store.countriesStore);
+	const { isModalOpen, modalIndex, modalAction } = useSelector((store) => store.modalStore);
+
+	const categories = ["Attractions", "Hotels", "Restaurants"];
+	const [category, setCategory] = useState(categories[0]);
+
 	const copyCountries = JSON.parse(JSON.stringify(countries));
 	const countriesArray = copyCountries.map((el) => el.country);
-	const options = countriesList
-		.names()
-		.sort()
-		.filter((el) => countriesArray.indexOf(el) === -1);
-	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
-	const categories = ["Attractions", "Hotels", "Restaurants"];
 	const emptyPlaces = {
 		attractionEmpty: {
 			id: (modalIndex + 1) * 100 * 10 + Date.now(),
@@ -90,6 +89,10 @@ function CreateAndEditModal() {
 			],
 		},
 	};
+	const options = countriesList
+		.names()
+		.sort()
+		.filter((el) => countriesArray.indexOf(el) === -1);
 
 	const [choosenCountry, setChoosenCountry] = useState(() => {
 		return modalIndex !== countries.length
@@ -105,8 +108,7 @@ function CreateAndEditModal() {
 			  };
 	});
 
-	const [category, setCategory] = useState(categories[0]);
-
+	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 	function addFormInCategory(category) {
 		const categoryObject = category.slice(0, -1) + "Empty";
 		const changedCountry = {};
@@ -131,7 +133,6 @@ function CreateAndEditModal() {
 
 	function changeModalCard(category, property, event, id, index, photoCarouselField) {
 		const changedCountry = {};
-
 		Object.assign(changedCountry, choosenCountry);
 		changedCountry[category].map((el) => {
 			if (el.id === id) {
@@ -173,9 +174,9 @@ function CreateAndEditModal() {
 		setChoosenCountry(changedCountry);
 	}
 
-	const handleCancel = () => {
+	function handleCancel() {
 		dispatch(changeModalVisibilityAC(false));
-	};
+	}
 
 	async function handleSubmit() {
 		try {
@@ -207,23 +208,22 @@ function CreateAndEditModal() {
 			}
 			if (emptyFields === 0) {
 				setChoosenCountry(changedCountry);
-				let response;
 				if (modalIndex !== countries.length) {
-					response = await axios.put("http://localhost:4000/countries", choosenCountry);
-					if (response.status === 200) {
-						dispatch(editCountryAC(choosenCountry));
-						dispatch(changeModalVisibilityAC(false));
-					} else {
-						throw new Error("error");
-					}
+					dispatch(editCountryThunk(choosenCountry)).then((response) => {
+						if (response.status === 200) {
+							dispatch(changeModalVisibilityAC(false));
+						} else {
+							throw new Error("error");
+						}
+					});
 				} else {
-					response = await axios.post("http://localhost:4000/countries", choosenCountry);
-					if (response.status === 200) {
-						dispatch(addCountryAC(choosenCountry));
-						dispatch(changeModalVisibilityAC(false));
-					} else {
-						throw new Error("error");
-					}
+					dispatch(addCountryThunk(choosenCountry)).then((response) => {
+						if (response.status === 200) {
+							dispatch(changeModalVisibilityAC(false));
+						} else {
+							throw new Error("error");
+						}
+					});
 				}
 			}
 		} catch (error) {
@@ -233,12 +233,6 @@ function CreateAndEditModal() {
 			});
 		}
 	}
-	const onFinishFailed = (errorInfo) => {
-		notification.error({
-			message: "Error",
-			description: "Check if all fields are filled in",
-		});
-	};
 
 	return (
 		<>

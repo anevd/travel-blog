@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, InputNumber, Card, Rate, Select, Button } from "antd";
 import { CloseOutlined, PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
-import { getCuisinesThunk } from "../../store/actions/mainActions";
+import { getCuisinesThunk } from "../../store/actions/cuisinesActions";
 import styles from "./modalCard.module.css";
 
 function ModalCard({ country, category, place, changeModalCard, deleteModalCard, changePhotoCarousel }) {
 	const dispatch = useDispatch();
-	const { cuisines } = useSelector((store) => store.mainStore);
+	const { cuisines } = useSelector((store) => store.cuisinesStore);
 	const [selectedItems, setSelectedItems] = useState([]);
+
 	const options = cuisines;
 	const filteredOptions = options.filter((o) => !selectedItems.includes(o));
 
@@ -21,6 +22,7 @@ function ModalCard({ country, category, place, changeModalCard, deleteModalCard,
 	function handleInput(event, category, property, id, index, photoCarouselField) {
 		changeModalCard(category, property, event, id, index, photoCarouselField);
 	}
+
 	return (
 		<Card
 			size="small"

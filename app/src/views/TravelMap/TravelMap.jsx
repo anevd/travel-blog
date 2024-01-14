@@ -1,21 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { YMaps, Map, ObjectManager } from "@pbe/react-yandex-maps";
-import { getDogThunk, getPointsThunk } from "../../store/actions/mainActions";
+import { getDogThunk } from "../../store/actions/dogActions";
+import { getPointsThunk } from "../../store/actions/mapActions";
 import Dog from "../../components/Dog/Dog";
 import styles from "./travelMap.module.css";
 
 function TravelMap() {
 	const dispatch = useDispatch();
-	const { dog, points } = useSelector((store) => store.mainStore);
-	useEffect(() => {
-		if (Object.keys(dog).length === 0) {
-			dispatch(getDogThunk());
-		}
-		if (Object.keys(points).length === 0) {
-			dispatch(getPointsThunk());
-		}
-	}, []);
+	const { dog } = useSelector((store) => store.dogStore);
+	const { points } = useSelector((store) => store.mapStore);
+
 	const { images: dogImages, jokes: dogJokes } = dog;
 	const copy = [...points];
 	const features = [];
@@ -44,6 +39,16 @@ function TravelMap() {
 			},
 		});
 	});
+
+	useEffect(() => {
+		if (Object.keys(dog).length === 0) {
+			dispatch(getDogThunk());
+		}
+		if (Object.keys(points).length === 0) {
+			dispatch(getPointsThunk());
+		}
+	}, []);
+
 	return (
 		<section className={styles.map}>
 			<div className="container">

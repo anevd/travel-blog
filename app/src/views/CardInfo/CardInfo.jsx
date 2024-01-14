@@ -3,24 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 import { Rate } from "antd";
-import { getDogThunk, getCountriesThunk } from "../../store/actions/mainActions";
+import { getDogThunk } from "../../store/actions/dogActions";
+import { getCountriesThunk } from "../../store/actions/countriesActions";
 import PhotoSlider from "../PhotoSlider/PhotoSlider";
 import Dog from "../../components/Dog/Dog";
 import styles from "./cardInfo.module.css";
 
 function CardInfo() {
 	const dispatch = useDispatch();
-	const { dog, countries } = useSelector((store) => store.mainStore);
-	useEffect(() => {
-		if (Object.keys(dog).length === 0) {
-			dispatch(getDogThunk());
-		}
-		if (Object.keys(countries).length === 0) {
-			dispatch(getCountriesThunk());
-		}
-	}, []);
-	const { images: dogImages, jokes: dogJokes } = dog;
 	const { country, type, id } = useParams();
+	const { dog } = useSelector((store) => store.dogStore);
+	const { countries } = useSelector((store) => store.countriesStore);
+	const { images: dogImages, jokes: dogJokes } = dog;
 	const currentCountry = countries.filter((el) => el.country === country)[0];
 	let currentCountryLocationType;
 	for (let key in currentCountry) {
@@ -33,6 +27,15 @@ function CardInfo() {
 		center: currentCard.coordinates,
 		zoom: 13,
 	};
+
+	useEffect(() => {
+		if (Object.keys(dog).length === 0) {
+			dispatch(getDogThunk());
+		}
+		if (Object.keys(countries).length === 0) {
+			dispatch(getCountriesThunk());
+		}
+	}, []);
 
 	return (
 		<section>

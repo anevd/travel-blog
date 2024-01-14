@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDogThunk, getCarouselDataThunk } from "../../store/actions/mainActions";
+import { getDogThunk } from "../../store/actions/dogActions";
+import { getCarouselDataThunk } from "../../store/actions/aboutActions";
 import About from "../About/About";
 import PhotoSlider from "../PhotoSlider/PhotoSlider";
 import Dog from "../../components/Dog/Dog";
@@ -8,7 +9,10 @@ import styles from "./helloPage.module.css";
 
 function HelloPage() {
 	const dispatch = useDispatch();
-	const { dog, carouselData } = useSelector((store) => store.mainStore);
+	const { dog } = useSelector((store) => store.dogStore);
+	const { carouselData } = useSelector((store) => store.aboutStore);
+	const { images: dogImages, jokes: dogJokes } = dog;
+
 	useEffect(() => {
 		if (Object.keys(dog).length === 0) {
 			dispatch(getDogThunk());
@@ -17,7 +21,7 @@ function HelloPage() {
 			dispatch(getCarouselDataThunk());
 		}
 	}, []);
-	const { images: dogImages, jokes: dogJokes } = dog;
+
 	return (
 		<section>
 			<About />

@@ -6,8 +6,10 @@ import CardItem from "../CardItem/CardItem";
 import CountryCard from "../../components/CountryCard/CountryCard";
 import Dog from "../../components/Dog/Dog";
 import CreateAndEditModal from "../CreateAndEditModal/CreateAndEditModal";
-import { getDogThunk, getCountriesThunk, getCuisinesThunk, deleteCountryAC, changeModalVisibilityAC, changeModalIndexAC, changeModalActionAC } from "../../store/actions/mainActions";
-import axios from "axios";
+import { getDogThunk } from "../../store/actions/dogActions";
+import { getCountriesThunk, deleteCountryThunk } from "../../store/actions/countriesActions";
+import { getCuisinesThunk } from "../../store/actions/cuisinesActions";
+import { changeModalVisibilityAC, changeModalIndexAC, changeModalActionAC } from "../../store/actions/modalActions";
 import styles from "./journey.module.css";
 
 const { confirm } = Modal;
@@ -17,16 +19,22 @@ const { SHOW_PARENT } = TreeSelect;
 
 const Journey = () => {
 	const dispatch = useDispatch();
-	const { dog, countries, cuisines, isModalOpen } = useSelector((store) => store.mainStore);
-	const { images: dogImages, jokes: dogJokes } = dog;
+	const { dog } = useSelector((store) => store.dogStore);
+	const { countries } = useSelector((store) => store.countriesStore);
+	const { cuisines } = useSelector((store) => store.cuisinesStore);
+	const { isModalOpen } = useSelector((store) => store.modalStore);
+
 	const [countrySearch, setCountrySearch] = useState(undefined);
 	const [checkedList, setCheckedList] = useState([]);
 	const [filteredRating, setFilteredRating] = useState(1);
 	const [choosenCheckboxList, setChoosenCheckboxList] = useState(countries);
+	const [selectedCuisines, setSelectedCuisines] = useState([]);
 	const [categoryPlaces, setCategoryPlaces] = useState([]);
 	const [filteredPlaces, setFilteredPlaces] = useState(categoryPlaces);
 	const [shownCard, setShownCard] = useState({});
 	const [page, setPage] = useState(1);
+
+	const { images: dogImages, jokes: dogJokes } = dog;
 	const elementsPerPage = 2;
 	const copyCountries = JSON.parse(JSON.stringify(countries));
 	const options = copyCountries.map((el) => {
@@ -36,6 +44,29 @@ const Journey = () => {
 		};
 	});
 	const filterOption = (input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+	const cuisinesCopy = JSON.parse(JSON.stringify(cuisines));
+	const treeData = [
+		{
+			title: "All",
+			value: "All",
+			key: "0-0-0",
+			children: cuisinesCopy.map((el) => {
+				el.title = el.value;
+				return el;
+			}),
+		},
+	];
+	const tProps = {
+		treeData,
+		value: selectedCuisines,
+		onChange: onCuisinesChange,
+		treeCheckable: true,
+		showCheckedStrategy: SHOW_PARENT,
+		placeholder: "Please select cuisines",
+	};
+	const checkAll = plainOptions.length === checkedList.length;
+	const indeterminate = checkedList.length > 0 && checkedList.length < plainOptions.length;
+
 	useEffect(() => {
 		if (Object.keys(cuisines).length === 0) {
 			dispatch(getCuisinesThunk());
@@ -52,22 +83,7 @@ const Journey = () => {
 		setFilteredPlaces(filteredPlaces);
 	}, [countries]);
 
-	const cuisinesCopy = JSON.parse(JSON.stringify(cuisines));
-	const treeData = [
-		{
-			title: "All",
-			value: "All",
-			key: "0-0-0",
-			children: cuisinesCopy.map((el) => {
-				el.title = el.value;
-				return el;
-			}),
-		},
-	];
-
-	const [selectedCuisines, setSelectedCuisines] = useState([]);
-
-	const onCuisinesChange = (newValue) => {
+	function onCuisinesChange(newValue) {
 		setSelectedCuisines(newValue);
 		if (checkedList.length === 1) {
 			setFilteredPlaces(categoryPlaces);
@@ -89,21 +105,9 @@ const Journey = () => {
 				setChoosenCheckboxList(filteredList);
 			}
 		}
-	};
+	}
 
-	const tProps = {
-		treeData,
-		value: selectedCuisines,
-		onChange: onCuisinesChange,
-		treeCheckable: true,
-		showCheckedStrategy: SHOW_PARENT,
-		placeholder: "Please select cuisines",
-	};
-
-	const checkAll = plainOptions.length === checkedList.length;
-	const indeterminate = checkedList.length > 0 && checkedList.length < plainOptions.length;
-
-	const onCheckboxChange = (list) => {
+	function onCheckboxChange(list) {
 		setShownCard({});
 		setPage(1);
 		const placesList = [];
@@ -132,11 +136,11 @@ const Journey = () => {
 			});
 			setChoosenCheckboxList(placesList);
 		}
-	};
+	}
 
-	const onCheckAllChange = (e) => {
+	function onCheckAllChange(e) {
 		setCheckedList(e.target.checked ? plainOptions : []);
-	};
+	}
 
 	function filterRating(value) {
 		setFilteredRating(value);
@@ -151,12 +155,7 @@ const Journey = () => {
 			cancelText: "No",
 			async onOk() {
 				try {
-					const response = await axios.delete(`http://localhost:4000/countries/${id}`);
-					if (response.status === 200) {
-						dispatch(deleteCountryAC(id));
-					} else {
-						throw new Error("error");
-					}
+					dispatch(deleteCountryThunk(id));
 				} catch (error) {
 					notification.error({
 						message: "Error",
@@ -169,11 +168,13 @@ const Journey = () => {
 			},
 		});
 	}
-	const openModal = (index, action) => {
+
+	function openModal(index, action) {
 		dispatch(changeModalIndexAC(index));
 		dispatch(changeModalActionAC(action));
 		dispatch(changeModalVisibilityAC(true));
-	};
+	}
+
 	return (
 		<section className={styles.journey}>
 			<div className="container">

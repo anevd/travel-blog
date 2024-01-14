@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./photoSlider.module.css";
 
-const PhotoSlider = ({ data }) => {
+function PhotoSlider({ data }) {
 	const sliderSettings = {
 		infinite: true,
 		dots: true,
@@ -28,6 +28,6 @@ const PhotoSlider = ({ data }) => {
 			))}
 		</Slider>
 	);
-};
+}
 
 export default PhotoSlider;

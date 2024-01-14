@@ -223,7 +223,7 @@ module.exports = [
 	},
 	{
 		id: 200,
-		country: "The Netherlands",
+		country: "Netherlands",
 		capital: "Amsterdam",
 		photo: "https://mykaleidoscope.ru/x/uploads/posts/2022-09/1663407899_16-mykaleidoscope-ru-p-niderlandi-stolitsa-amsterdam-instagram-18.jpg",
 		attractions: [
